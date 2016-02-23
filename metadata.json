@@ -1,0 +1,14 @@
+{
+  "name": "CommanderK5-strongswan",
+  "version": "1.0.0",
+  "author": "Lukasz Rohde",
+  "summary": "Puppet Spacewalk module",
+  "license": "Apache-2.0",
+  "source": "https://github.com/CommanderK5/puppet-strongswan",
+  "project_page":"https://github.com/CommanderK5/puppet-strongswan",
+  "issues_url": "https://github.com/CommanderK5/puppet-strongswan/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 3.0.0"},
+    {"name":"puppetlabs-concat","version_requirement":">= 1.0.0"}
+  ]
+}
