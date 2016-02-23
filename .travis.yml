@@ -1,3 +1,5 @@
+--
+sudo: true
 language: ruby
 bundler_args: --without system_tests
 script: "bundle exec rake spec && bundle exec rake lint"
