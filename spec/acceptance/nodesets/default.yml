@@ -1,0 +1,13 @@
+HOSTS:
+  centos7.2:
+    roles:
+      - default
+    platform: el-7-x86_64
+    box: centos7.2
+    box_url: https://github.com/CommanderK5/packer-centos-template/releases/download/0.7.2/vagrant-centos-7.2.box
+    hypervisor: vagrant
+    natdns: 'on'
+CONFIG:
+  type: aio
+  color: false
+  verbose: true
