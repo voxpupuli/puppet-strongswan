@@ -130,6 +130,15 @@ describe 'strongswan', :type => 'class' do
         'notify' => 'Class[Strongswan::Service]',
       )
     }
+    it {
+      should contain_concat('/etc/strongswan/strongswan.d/charon-logging.conf').with(
+        'ensure' => 'present',
+        'mode'   => '0644',
+        'owner'  => 'root',
+        'group'  => 'root',
+        'notify' => 'Class[Strongswan::Service]',
+      )
+    }
   end
 
   context "on an unknown OS" do

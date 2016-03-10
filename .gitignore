@@ -2,3 +2,5 @@ Vagrantfile
 .vagrant
 .bundle
 vendor
+log
+spec/fixtures

@@ -27,6 +27,20 @@ class strongswan(
     owner  => 'root',
     group  => 'root',
   }
+  
+  concat { $strongswan::params::charon_logging_conf:
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    require => Package[$package_name],
+    notify  => Class['Strongswan::Service'],
+  }
+
+  concat::fragment { 'charon_logging_header':
+    content => 'charon {}',
+    target  => $strongswan::params::charon_logging_conf,
+    order   => '01',
+  }
 
   concat {  $strongswan::params::ipsec_conf:
     mode    => '0644',
@@ -35,6 +49,7 @@ class strongswan(
     require => Package[$package_name],
     notify  => Class['Strongswan::Service'],
   }
+
 
   concat::fragment { 'ipsec_conf_header':
     content => template('strongswan/ipsec_conf_header.erb'),

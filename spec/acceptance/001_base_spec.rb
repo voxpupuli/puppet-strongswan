@@ -22,6 +22,12 @@ describe 'strongswan default:' do
     describe file('/etc/strongswan/ipsec.conf') do
       it { should be_file }
     end
+    describe file('/etc/strongswan/strongswan.d/charon-logging.conf') do
+      it { should be_file }
+    end
+    describe file('/etc/strongswan/strongswan.d/charon-logging.conf') do
+      it { should contain 'charon {}' }
+    end
     describe file('/etc/strongswan/ipsec.secrets') do
       it { should be_file }
     end
