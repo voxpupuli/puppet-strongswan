@@ -1,2 +1,4 @@
 Vagrantfile
 .vagrant
+.bundle
+vendor
