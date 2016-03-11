@@ -1,17 +1,17 @@
 require 'spec_helper'
 
 describe 'strongswan::charon', :type => 'class' do
-  context "on a Debian OS" do
+  context "on a Redhat OS" do
     let :facts do
       {
-        :osfamily       => 'Debian',
+        :osfamily       => 'Redhat',
       }
     end
 
     it {
       should contain_file('charon.conf').with(
         "ensure"  => "present",
-        "path"    => "/etc/strongswan.d/charon.conf",
+        "path"    => "/etc/strongswan/strongswan.d/charon.conf",
         "mode"    => '0644',
         "owner"   => 'root',
         "group"   => 'root',

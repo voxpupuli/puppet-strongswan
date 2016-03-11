@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe 'strongswan::setup', :type => 'class' do
-  context "on a Debian OS" do
+  context "on a Redhat OS" do
     let :facts do
       {
         :id             => 'root',
         :is_pe          => false,
-        :osfamily       => 'Debian',
+        :osfamily       => 'Redhat',
         :concat_basedir => '/dne',
         :path           => '/usr/sbin:/usr/bin:/sbin:/bin',
       }

@@ -1,0 +1,10 @@
+  <%= @logger %> {
+  <% if @identifier then %> 
+  identifier = <%= @identifier %>
+  <% end %>
+    <%= @key %> {
+      <% @options.each do |option, setting| -%>
+        <%= option %> = <%= setting %>
+      <% end %>
+    }
+  }

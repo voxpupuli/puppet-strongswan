@@ -37,9 +37,19 @@ class strongswan(
   }
 
   concat::fragment { 'charon_logging_header':
-    content => 'charon {}',
+    content => "charon {\n",
     target  => $strongswan::params::charon_logging_conf,
     order   => '01',
+    require => Package[$package_name],
+    notify  => Class['Strongswan::Service'],
+  }
+
+  concat::fragment { 'charon_logging_footer':
+    content => "\n}",
+    target  => $strongswan::params::charon_logging_conf,
+    order   => '99',
+    require => Package[$package_name],
+    notify  => Class['Strongswan::Service'],
   }
 
   concat {  $strongswan::params::ipsec_conf:

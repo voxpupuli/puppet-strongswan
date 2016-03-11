@@ -1,6 +1,8 @@
 define strongswan::logging (
-  $logger         = 'filelog',
-  $options        = {},
+  $logger,
+  $key        = $title,
+  $options    = {},
+  $identifier = false,
 ) {
   # The base class must be included first because it is used by parameter
   # defaults.
@@ -9,21 +11,10 @@ define strongswan::logging (
   }
 
   validate_hash($options)
-  
-   file { 'charon-logging.conf':
-    ensure  => present,
-    path    => $strongswan::params::charon_logging_conf,
-    content => template("strongswan/charon-logging.conf.erb"),
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    require => Package[$strongswan::params::package],
-    notify  => Class['Strongswan::Service'],
-  }
 
-  concat::fragment { "${title}-${logger}":
-    content => template('strongswan/ipsec_conf_conn.erb'),
-    target  => $strongswan::params::ipsec_conf,
-    order   => '03',
+  concat::fragment { "charon_logging-${title}":
+    content => template('strongswan/charon-logging.conf.erb'),
+    target  => $strongswan::params::charon_logging_conf,
+    order   => '05',
   }
 }

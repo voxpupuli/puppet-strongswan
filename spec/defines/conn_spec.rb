@@ -10,7 +10,7 @@ describe 'strongswan::conn', :type => :define do
       {
         :id             => 'root',
         :is_pe          => false,
-        :osfamily       => 'Debian',
+        :osfamily       => 'Redhat',
         :concat_basedir => '/dne',
         :path           => '/usr/sbin:/usr/bin:/sbin:/bin',
       }
@@ -34,15 +34,15 @@ describe 'strongswan::conn', :type => :define do
     }
     it {
       should contain_concat__fragment('ipsec_conf_conn-%default') \
-        .with_content(/    ike=aes128gcm128-prfsha256-ecp256/)
+        .with_content(/^\s*ike=aes128gcm128-prfsha256-ecp256/)
     }
     it {
       should contain_concat__fragment('ipsec_conf_conn-%default') \
-        .with_content(/    esp=aes128gcm128-ecp256/)
+        .with_content(/^\s*esp=aes128gcm128-ecp256/)
     }
     it {
       should contain_concat__fragment('ipsec_conf_conn-%default') \
-        .with_content(/    keyexchange=ikev2/)
+        .with_content(/^\s*keyexchange=ikev2/)
     }
   end
 
