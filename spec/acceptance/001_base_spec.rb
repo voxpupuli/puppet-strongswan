@@ -26,7 +26,7 @@ describe 'strongswan default:' do
       it { should be_file }
     end
     describe file('/etc/strongswan/strongswan.d/charon-logging.conf') do
-      it { should contain 'charon {}' }
+      it { should contain (/^\s*charon\s*/) }
     end
     describe file('/etc/strongswan/ipsec.secrets') do
       it { should be_file }
