@@ -34,25 +34,25 @@ Parameters for an IPsec gateway server:
 ```puppet
 strongswan::conn { 'IPsec-IKEv2':
   options => {
-    "rekey"         => "no"
-    "left"          => "%any"
-    "leftsubnet"    => "0.0.0.0/0"
-    "leftcert"      => "vpnHostCert.der"s
-    "right"         => "%any"
-    "rightdns"      => "8.8.8.8,8.8.4.4"
-    "rightsourceip" => "10.10.10.0/24"
-    "auto"          => "add"
+    "rekey"         => "no",
+    "left"          => "%any",
+    "leftsubnet"    => "0.0.0.0/0",
+    "leftcert"      => "vpnHostCert.der",
+    "right"         => "%any",
+    "rightdns"      => "8.8.8.8,8.8.4.4",
+    "rightsourceip" => "10.10.10.0/24",
+    "auto"          => "add",
   }
 }
 
 strongswan::conn { 'IKEv2-EAP':
   options => {
-    "also"          => "IPSec-IKEv2"
-    "leftauth"      => "pubkey"
-    "leftsendcert"  => "always"
-    "rightauth"     => "eap-mschapv2"
-    "rightsendcert" => "never"
-    "eap_identity"  => "%any"
+    "also"          => "IPSec-IKEv2",
+    "leftauth"      => "pubkey",
+    "leftsendcert"  => "always",
+    "rightauth"     => "eap-mschapv2",
+    "rightsendcert" => "never",
+    "eap_identity"  => "%any",
   }
 
 strongswan::secrets { '%any':
@@ -64,6 +64,29 @@ strongswan::secrets { '%any':
 strongswan::secrets { 'John':
   options => {
     'EAP' => 'SuperSecretPass'
+  }
+}
+```
+logging configuration example:
+
+```puppet
+strongswan::logging { '/var/log/strongswan.log':
+  logger  => 'filelog',
+  options => {
+    'time_format' => '%b %e %T',
+    'ike_name'    => 'yes',
+    'append'      => 'no',
+    'default'     => '2',
+    'flush_line'  => 'yes'
+  }
+}
+```
+```puppet
+strongswan::logging { 'stderr':
+  logger  => 'filelog',
+  options => {
+    'ike' => '0',
+    'knl' => '0'
   }
 }
 ```

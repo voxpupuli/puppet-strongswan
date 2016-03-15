@@ -10,7 +10,7 @@ describe 'strongswan::secrets', :type => :define do
       {
         :id             => 'root',
         :is_pe          => false,
-        :osfamily       => 'Debian',
+        :osfamily       => 'Redhat',
         :concat_basedir => '/dne',
         :path           => '/usr/sbin:/usr/bin:/sbin:/bin',
       }

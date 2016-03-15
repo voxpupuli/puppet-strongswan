@@ -24,3 +24,22 @@ strongswan::secrets { '%any':
     'RSA' => 'key.der secret'
   }
 }
+
+strongswan::logging { '/var/log/strongswan.log':
+  logger  => 'filelog',
+  options => {
+    'time_format' => '%b %e %T',
+    'ike_name'    => 'yes',
+    'append'      => 'no',
+    'default'     => '2',
+    'flush_line'  => 'yes'
+  }
+}
+
+strongswan::logging { 'stderr':
+  logger  => 'filelog',
+  options => {
+    'ike' => '0',
+    'knl' => '0'
+  }
+}

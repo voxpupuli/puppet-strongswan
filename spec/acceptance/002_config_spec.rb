@@ -31,7 +31,7 @@ describe 'connection:' do
           }
           strongswan::conn { \'IKEv2-EAP\':
             options => {
-             "leftauth"      => "pubkey",
+              "leftauth"      => "pubkey",
               "leftsendcert"  => "always",
               "rightauth"     => "eap-mschapv2",
               "rightsendcert" => "never",
@@ -41,6 +41,23 @@ describe 'connection:' do
           strongswan::secrets { "John":
             options => {
               "EAP" => "SuperSecretPass",
+            }
+          }
+          strongswan::logging { "/var/log/strongswan.log":
+            logger => "filelog",
+            options  => {
+              "time_format" => "%b %e %T",
+              "ike_name"    => "yes",
+              "append"      => "no",
+              "default"     => "2",
+              "flush_line"  => "yes",
+            }
+          }
+          strongswan::logging { "stderr":
+            logger  => "filelog",
+            options => {
+              "ike" => "0",
+              "knl" => "0",
             }
           }'
       apply_manifest(pp, catch_failures: true) do |r|
