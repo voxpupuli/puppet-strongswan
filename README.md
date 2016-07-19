@@ -1,7 +1,5 @@
 # puppet-strongswan [![Build Status](https://travis-ci.org/CommanderK5/puppet-strongswan.svg?branch=master)](https://travis-ci.org/CommanderK5/puppet-strongswan)
 
-cloned from https://github.com/jpds/puppet-strongswan
-
 This Puppet module contains configurations for strongSwan. 
 ## Example usage
 
