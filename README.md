@@ -115,4 +115,4 @@ class { 'strongswan::setup':
 
 ## License
 
-See [LICENSE](LICENSE) file.
+MIT License
