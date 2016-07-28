@@ -10,7 +10,7 @@ describe 'strongswan::charon', :type => 'class' do
 
     it {
       should contain_file('charon.conf').with(
-        "ensure"  => "present",
+        "ensure"  => "file",
         "path"    => "/etc/strongswan/strongswan.d/charon.conf",
         "mode"    => '0644',
         "owner"   => 'root',
