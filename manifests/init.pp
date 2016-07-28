@@ -27,7 +27,7 @@ class strongswan(
     owner  => 'root',
     group  => 'root',
   }
-  
+
   concat { $strongswan::params::charon_logging_conf:
     mode    => '0644',
     owner   => 'root',

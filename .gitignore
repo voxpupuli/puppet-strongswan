@@ -4,3 +4,4 @@ Vagrantfile
 vendor
 log
 spec/fixtures
+Gemfile.lock

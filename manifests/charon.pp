@@ -40,7 +40,7 @@ class strongswan::charon (
   }
 
   file { 'charon.conf':
-    ensure  => present,
+    ensure  => file,
     path    => $strongswan::params::charon_conf,
     content => template("${module_name}/charon.conf.erb"),
     mode    => '0644',
