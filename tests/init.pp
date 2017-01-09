@@ -15,14 +15,14 @@ class { 'strongswan': }
 
 strongswan::secrets { 'peer':
   options => {
-    'EAP' => 'qwerty'
-  }
+    'EAP' => 'qwerty',
+  },
 }
 
 strongswan::secrets { '%any':
   options => {
-    'RSA' => 'key.der secret'
-  }
+    'RSA' => 'key.der secret',
+  },
 }
 
 strongswan::logging { '/var/log/strongswan.log':
@@ -32,14 +32,14 @@ strongswan::logging { '/var/log/strongswan.log':
     'ike_name'    => 'yes',
     'append'      => 'no',
     'default'     => '2',
-    'flush_line'  => 'yes'
-  }
+    'flush_line'  => 'yes',
+  },
 }
 
 strongswan::logging { 'stderr':
   logger  => 'filelog',
   options => {
     'ike' => '0',
-    'knl' => '0'
-  }
+    'knl' => '0',
+  },
 }
