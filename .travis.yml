@@ -3,16 +3,10 @@ sudo: false
 language: ruby
 cache: bundler
 bundler_args: --without system_tests development
-before_install:
-  - bundle -v
-  - rm Gemfile.lock || true
-  - gem update --system
-  - gem update bundler
-  - gem --version
-  - bundle -v
 script:
   - bundle exec rake validate
   - bundle exec rake lint
+  - bunlde exec rake spec SPEC_OPTS='--format documentation'
 matrix:
   fast_finish: true
   include:
