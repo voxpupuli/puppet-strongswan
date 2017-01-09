@@ -1,6 +1,18 @@
 require 'beaker-rspec'
 require 'beaker/puppet_install_helper'
 
+hosts.each do |host|
+  install_puppet()
+    install_package host, 'net-tools'
+    install_package host, 'make'
+    install_package host, 'gcc'
+    install_package host, 'ruby-devel'
+    install_package host, 'epel-release'
+    on host, 'yum makecache'
+end
+
+
+
 RSpec.configure do |c|
   # Project root
   proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))

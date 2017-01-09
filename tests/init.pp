@@ -10,8 +10,8 @@
 # http://docs.puppetlabs.com/guides/tests_smoke.html
 #
 
-include strongswan
-
+#include strongswan
+class { 'strongswan': }
 
 strongswan::secrets { 'peer':
   options => {
