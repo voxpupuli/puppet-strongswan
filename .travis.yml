@@ -10,7 +10,7 @@ before_install:
   - gem update bundler
   - gem --version
   - bundle -v
-script: "bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--format documentation'"
+script: "bundle exec rake validate && bundle exec rake lint"
 matrix:
   fast_finish: true
   include:
