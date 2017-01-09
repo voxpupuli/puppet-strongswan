@@ -10,7 +10,9 @@ before_install:
   - gem update bundler
   - gem --version
   - bundle -v
-script: "bundle exec rake validate && bundle exec rake lint"
+script:
+  - bundle exec rake validate
+  - bundle exec rake lint
 matrix:
   fast_finish: true
   include:
