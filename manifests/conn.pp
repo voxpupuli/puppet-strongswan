@@ -9,8 +9,6 @@ define strongswan::conn(
     fail('You must include the strongswan base class before using any strongswan defined resources')
   }
 
-  validate_hash($options)
-
   concat::fragment { "ipsec_conf_conn-${conn_name}":
     content => template('strongswan/ipsec_conf_conn.erb'),
     target  => $strongswan::params::ipsec_conf,

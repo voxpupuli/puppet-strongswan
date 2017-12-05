@@ -12,6 +12,7 @@
 
 #include strongswan
 class { 'strongswan': }
+class {'strongswan::pki::ca': }
 
 strongswan::secrets { 'peer':
   options => {
@@ -21,7 +22,7 @@ strongswan::secrets { 'peer':
 
 strongswan::secrets { '%any':
   options => {
-    'RSA' => 'key.der secret',
+    'RSA' => 'serverKey.der',
   },
 }
 

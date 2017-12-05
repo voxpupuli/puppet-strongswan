@@ -8,8 +8,6 @@ define strongswan::secrets(
     fail('You must include the strongswan base class before using any strongswan defined resources')
   }
 
-  validate_hash($options)
-
   concat::fragment { "ipsec_secrets_secret-${title}":
     content => template('strongswan/ipsec_secrets_secret.erb'),
     target  => $strongswan::params::ipsec_secrets,
