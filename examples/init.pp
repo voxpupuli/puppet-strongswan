@@ -10,29 +10,60 @@
 # http://docs.puppetlabs.com/guides/tests_smoke.html
 #
 
-#include strongswan
-class { 'strongswan': }
-class {'strongswan::pki::ca': }
+# Strongswan IKEv2-EAP-MSCHAPv2 configuration example
+# works with OS X native Strongswan client
+# https://download.strongswan.org/osx/
 
-strongswan::secrets { 'peer':
+class {'strongswan':}
+class {'strongswan::pki::ca':
+  server_san => 'strongswan-1.ss.local',
+  server_ip  => '192.168.33.42',
+}
+
+strongswan::secrets { 'user1':
   options => {
     'EAP' => 'qwerty',
   },
 }
 
-strongswan::secrets { '%any':
+strongswan::secrets { ' ':
   options => {
     'RSA' => 'serverKey.der',
   },
 }
 
-strongswan::logging { '/var/log/strongswan.log':
+
+strongswan::conn {'ikev2-eap-mschapv2':
+  options => {
+    'auto'          => 'add',
+    'compress'      => 'no',
+    'type'          => 'tunnel',
+    'keyexchange'   => 'ikev2',
+    'dpdaction'     => 'clear',
+    'dpddelay'      => '300s',
+    'rekey'         => 'no',
+    'left'          => '%any',
+    'leftid'        => '192.168.33.42',
+    'leftcert'      => 'serverCert.der',
+    'leftsendcert'  => 'always',
+    'leftsubnet'    => '192.168.33.0/24',
+    'right'         => '%any',
+    'rightid'       => '%any',
+    'rightauth'     => 'eap-mschapv2',
+    'rightsourceip' => '10.10.10.0/24',
+    'rightdns'      => '8.8.8.8,8.8.4.4',
+    'rightsendcert' => 'never',
+    'eap_identity'  => '%identity'
+  }
+}
+
+strongswan::logging { '/var/log/vpn.log':
   logger  => 'filelog',
   options => {
     'time_format' => '%b %e %T',
     'ike_name'    => 'yes',
     'append'      => 'no',
-    'default'     => '2',
+    'default'     => '1',
     'flush_line'  => 'yes',
   },
 }
@@ -40,7 +71,7 @@ strongswan::logging { '/var/log/strongswan.log':
 strongswan::logging { 'stderr':
   logger  => 'filelog',
   options => {
-    'ike' => '0',
-    'knl' => '0',
+    'ike' => '2',
+    'knl' => '2',
   },
 }

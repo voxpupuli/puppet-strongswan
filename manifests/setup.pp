@@ -8,5 +8,6 @@ class strongswan::setup(
     content => template('strongswan/ipsec_conf_setup.erb'),
     target  => $strongswan::params::ipsec_conf,
     order   => '02',
+    notify  => Class['Strongswan::Service']
   }
 }

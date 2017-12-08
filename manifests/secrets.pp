@@ -12,5 +12,6 @@ define strongswan::secrets(
     content => template('strongswan/ipsec_secrets_secret.erb'),
     target  => $strongswan::params::ipsec_secrets,
     order   => '02',
+    notify  => Class['Strongswan::Service']
   }
 }

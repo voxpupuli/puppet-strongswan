@@ -44,5 +44,6 @@ define strongswan::logging (
     content => template('strongswan/charon-logging.conf.erb'),
     target  => $strongswan::params::charon_logging_conf,
     order   => '05',
+    notify  => Class['Strongswan::Service']
   }
 }

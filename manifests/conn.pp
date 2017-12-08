@@ -13,5 +13,6 @@ define strongswan::conn(
     content => template('strongswan/ipsec_conf_conn.erb'),
     target  => $strongswan::params::ipsec_conf,
     order   => '03',
+    notify  => Class['Strongswan::Service']
   }
 }
