@@ -5,3 +5,4 @@ vendor
 log
 spec/fixtures
 Gemfile.lock
+.DS_Store
