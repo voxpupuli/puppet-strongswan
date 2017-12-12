@@ -1,7 +1,7 @@
 # Define: name
- # Parameters:
- # arguments
- #
+# Parameters:
+# arguments
+#
 define strongswan::pki::certificate (
   $ca_name            = $strongswan::pki::ca::ca_name,
   $ca_certificate_dir = $strongswan::pki::ca::certificate_dir,
@@ -15,8 +15,8 @@ define strongswan::pki::certificate (
   $p12_password       = 'xyz123',
   ){
 
-  $san_arr = $san.map | $s | { "--san $s" }
-  $san_str = join($san_arr," ")
+  $san_arr = $san.map | $s | { "--san ${s}" }
+  $san_str = join($san_arr,' ')
 
   exec {"${title} private key":
     command => "strongswan pki --gen --type rsa --size 2048 --outform der > ${private_key_dir}/${title}.der",
@@ -42,7 +42,7 @@ define strongswan::pki::certificate (
 
   exec {"Convert RSA kay ${title} from DER to PEM format":
     command => "openssl rsa -inform DER -in ${private_key_dir}/${title}.der -out ${private_key_dir}/${title}.pem -outform PEM",
-    cwd     => "/etc/strongswan",
+    cwd     => '/etc/strongswan',
     creates => [ "${private_key_dir}/${title}.pem"],
     path    => ['/usr/bin', '/usr/sbin'],
     require => Exec["${title} private key"],
@@ -50,7 +50,7 @@ define strongswan::pki::certificate (
 
   exec {"Convert certificate ${title} from DER to PEM format":
     command => "openssl x509 -inform DER -in ${certificate_dir}/${title}.crt -out ${certificate_dir}/${title}.pem -outform PEM",
-    cwd     => "/etc/strongswan",
+    cwd     => '/etc/strongswan',
     creates => [ "${certificate_dir}/${title}.pem"],
     path    => ['/usr/bin', '/usr/sbin'],
     require => Exec["${title} certificate"],
@@ -58,7 +58,7 @@ define strongswan::pki::certificate (
 
   exec {"Create a PKCS#12 container for ${title}":
     command => "openssl pkcs12 -in ${certificate_dir}/${title}.pem -inkey ${private_key_dir}/${title}.pem -certfile ${ca_certificate_dir}/${ca_name}.pem -export -password pass:${p12_password} -out ${certificate_dir}/${title}.p12",
-    cwd     => "/etc/strongswan",
+    cwd     => '/etc/strongswan',
     creates => [ "${certificate_dir}/${title}.p12"],
     path    => ['/usr/bin', '/usr/sbin'],
     require => [
