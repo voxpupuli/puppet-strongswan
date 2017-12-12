@@ -15,10 +15,12 @@
 # https://download.strongswan.org/osx/
 
 class {'strongswan':}
-class {'strongswan::pki::ca':
-  server_san => 'strongswan-1.ss.local',
-  server_ip  => '192.168.33.42',
+class {'strongswan::pki::ca':}
+
+strongswan::pki::certificate {'server':
+  san => ['@strongswan-1','strongswan-1','192.168.33.42', '@192.168.33.42']
 }
+
 
 strongswan::secrets { 'user1':
   options => {
@@ -28,7 +30,7 @@ strongswan::secrets { 'user1':
 
 strongswan::secrets { ' ':
   options => {
-    'RSA' => 'serverKey.der',
+    'RSA' => 'server.der',
   },
 }
 
@@ -44,7 +46,7 @@ strongswan::conn {'ikev2-eap-mschapv2':
     'rekey'         => 'no',
     'left'          => '%any',
     'leftid'        => '192.168.33.42',
-    'leftcert'      => 'serverCert.der',
+    'leftcert'      => 'server.crt',
     'leftsendcert'  => 'always',
     'leftsubnet'    => '192.168.33.0/24',
     'right'         => '%any',
