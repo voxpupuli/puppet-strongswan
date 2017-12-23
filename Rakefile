@@ -5,13 +5,7 @@ require 'puppet-lint/tasks/puppet-lint'
 require 'puppet-syntax/tasks/puppet-syntax'
 
 PuppetLint.configuration.send('disable_80chars')
+PuppetLint.configuration.send('disable_class_inherits_from_params_class')
+PuppetLint.configuration.send('disable_documentation')
 PuppetLint.configuration.ignore_paths = ['spec/**/*.pp', 'pkg/**/*.pp', 'vendor/**/*']
 
-
-if RUBY_VERSION !~ /^1\./
-  require 'rubocop/rake_task'
-  RuboCop::RakeTask.new(:rubocop) do |task|
-    task.patterns = ['spec/**/*.rb']
-    task.fail_on_error = false
-  end
-end

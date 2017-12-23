@@ -2,8 +2,10 @@ require 'spec_helper_acceptance'
 
 describe 'strongswan default:' do
   describe 'run puppet' do
-    it 'should run successfully' do
-      pp = "class { 'strongswan': }"
+    it 'runs successfully' do
+      pp = "class { 'strongswan': }
+            class { 'strongswan::setup': }
+            class { 'strongswan::pki::ca':}"
 
       apply_manifest(pp, catch_failures: true) do |r|
         expect(r.stderr).not_to eq(/error/i)
@@ -17,22 +19,16 @@ describe 'strongswan default:' do
   end
   describe 'componets:' do
     describe package('strongswan') do
-      it { should be_installed }
+      it { is_expected.to be_installed }
     end
     describe file('/etc/strongswan/ipsec.conf') do
-      it { should be_file }
-    end
-    describe file('/etc/strongswan/strongswan.d/charon-logging.conf') do
-      it { should be_file }
-    end
-    describe file('/etc/strongswan/strongswan.d/charon-logging.conf') do
-      it { should contain (/^\s*charon\s*/) }
+      it { is_expected.to be_file }
     end
     describe file('/etc/strongswan/ipsec.secrets') do
-      it { should be_file }
+      it { is_expected.to be_file }
     end
     describe service('strongswan') do
-      it { should be_running }
+      it { is_expected.to be_running }
     end
   end
 end

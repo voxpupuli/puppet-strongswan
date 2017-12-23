@@ -1,0 +1,9 @@
+HOSTS:
+  centos-6-x64:
+    platform: el-6-x86_64
+    hypervisor: docker
+    image: centos:6
+    docker_cmd: '["/sbin/init"]'
+CONFIG:
+  type: aio
+  log_level: verbose

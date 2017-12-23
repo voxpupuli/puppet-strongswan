@@ -2,16 +2,15 @@ require 'beaker-rspec'
 require 'beaker/puppet_install_helper'
 
 hosts.each do |host|
-  install_puppet()
-    install_package host, 'net-tools'
-    install_package host, 'make'
-    install_package host, 'gcc'
-    install_package host, 'ruby-devel'
-    install_package host, 'epel-release'
-    on host, 'yum makecache'
+  install_puppet
+  install_package host, 'net-tools'
+  install_package host, 'make'
+  install_package host, 'gcc'
+  install_package host, 'ruby-devel'
+  install_package host, 'epel-release'
+  install_package host, 'openssl'
+  on host, 'yum makecache'
 end
-
-
 
 RSpec.configure do |c|
   # Project root

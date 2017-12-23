@@ -1,10 +1,15 @@
-# strongSwan service management.
-class strongswan::service(
-  $service_name   = $::strongswan::params::service,
-) {
-  service { $service_name:
-    ensure  => running,
-    enable  => true,
-    require => Class['strongswan'],
+# This module manages Strongswan service
+#
+# Parameters:
+#
+# There are no default parameters for this class.
+#
+# Sample Usage:
+#
+# This class file is not called directly
+class strongswan::service {
+  service { $::strongswan::service_name:
+    ensure => running,
+    enable => true,
   }
 }

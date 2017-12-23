@@ -1,0 +1,36 @@
+require: rubocop-rspec
+AllCops:
+  TargetRubyVersion: 1.9
+  Exclude:
+    - files/**/*
+    - vendor/**/*
+    - .vendor/**/*
+    - spec/fixtures/**/*
+    - Gemfile
+    - Rakefile
+    - Vagrantfile
+
+
+Metrics/BlockLength:
+  Enabled: False
+
+Metrics/MethodLength:
+  Enabled: False
+
+Metrics/ModuleLength:
+  Enabled: False
+
+Metrics/ClassLength:
+  Enabled: False
+
+Metrics/LineLength:
+  Enabled: False
+
+RSpec/ExampleLength:
+  Enabled: False
+
+RSpec/DescribeClass:
+  Enabled: False
+
+RSpec/MultipleExpectations:
+  Enabled: False

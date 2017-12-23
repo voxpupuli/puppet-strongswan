@@ -1,50 +1,31 @@
 require 'spec_helper'
 
-describe 'strongswan::secrets', :type => :define do
-  let :pre_condition do
-    'include strongswan'
-  end
+describe 'strongswan::secrets', type: :define do
+  let(:pre_condition) { 'include strongswan' }
 
-  context 'default conn settings on a Debian system' do
-    let(:facts) {
-      {
-        :id             => 'root',
-        :is_pe          => false,
-        :osfamily       => 'Redhat',
-        :concat_basedir => '/dne',
-        :path           => '/usr/sbin:/usr/bin:/sbin:/bin',
+  on_supported_os.each do |os, facts|
+    context "on #{os}" do
+      let(:facts) do
+        facts
+      end
+      let(:title) { 'user' }
+      let :params do
+        {
+          options: {
+            'ECDSA' => 'user.der'
+          }
+        }
+      end
+
+      it {
+        is_expected.to contain_concat__fragment('ipsec_secrets_secret-user') \
+          .with_content(/# Secrets for user\./)
       }
-    }
-    let(:title) { 'rw' }
-    let :params do
-      {
-        :options => {
-          'ECDSA'  => 'rwKey.der',
-        },
-      } 
-    end
 
-    it { should contain_class('strongswan::params') }
-
-    it {
-      should contain_concat__fragment('ipsec_secrets_secret-rw') \
-        .with_content(/# Secrets for rw\./)
-    }
-
-    it {
-      should contain_concat__fragment('ipsec_secrets_secret-rw') \
-        .with_content(/: ECDSA rwKey\.der/)
-    }
-  end
-
-  context 'example settings on a Solaris system' do
-    let(:facts) { { :osfamily => 'Solaris' } }
-    let(:title) { 'gw' }
-
-    it do
-      expect {
-        should compile
-      }.to raise_error(/Solaris is not supported./)
+      it {
+        is_expected.to contain_concat__fragment('ipsec_secrets_secret-user') \
+          .with_content(/: ECDSA user\.der/)
+      }
     end
   end
 end

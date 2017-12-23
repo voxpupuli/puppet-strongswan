@@ -1,52 +1,44 @@
-# strongSwan charon class.
-class strongswan::charon (
-  $dns1                  = undef,
-  $dns2                  = undef,
-  $ikesa_table_segments  = undef,
-  $ikesa_table_size      = undef,
-  $initiator_only        = 'no',
-  $integrity_test        = 'no',
-  $crypto_test_on_add    = 'no',
-  $crypto_test_on_create = 'no',
-  $crypto_test_required  = 'no',
-  $crypto_test_rng_true  = 'no',
-  $group                 = undef,
-  $interfaces_use        = undef,
-  $user                  = undef,
-) inherits strongswan::params {
-  # Check DNS setting IPs.
-  if $dns1 {
-    if !is_ip_address($dns1) {
-      fail("Expected IP address for dns1, got ${dns1}")
-    }
-  }
+# Define strongswan::logging
+# ===========================
+#
+# Manage strongswan charon.conf
+#
+# Example configuration:
+# ===========================
+#
+# strongswan::charon { 'log':
+#   options => {
+#     'filelog' => {
+#       '/var/log/strongswan.log' => {
+#         'time_format' => '%b %e %T',
+#         'ike_name'    => 'yes',
+#         'append'      => 'no',
+#         'default'     => '1',
+#         'flush_line'  => 'yes',
+#       },
+#       'stderr' => {
+#         'ike' => '2',
+#         'knl' => '2',
+#       }
+#     }
+#   }
+# }
+#
 
-  if $dns2 {
-    if !is_ip_address($dns2) {
-      fail("Expected IP address for dns2, got ${dns2}")
-    }
-  }
+define strongswan::charon (
+  $options    = {},
+) {
 
-  if $ikesa_table_size {
-    if !is_integer($ikesa_table_size) {
-      fail("Expected integer for ikesa_table_size, got ${ikesa_table_size}")
-    }
-  }
+  $fname = regsubst($title, '\W', '_', 'G')
 
-  if $ikesa_table_segments {
-    if !is_integer($ikesa_table_segments) {
-      fail("Expected integer for ikesa_table_segments, got ${ikesa_table_segments}")
-    }
-  }
-
-  file { 'charon.conf':
-    ensure  => file,
-    path    => $strongswan::params::charon_conf,
-    content => template("${module_name}/charon.conf.erb"),
-    mode    => '0644',
+  file {"charon_${fname}":
+    ensure  => present,
+    path    => "${::strongswan::charon_conf_dir}/charon_${fname}.conf",
+    mode    => '0640',
     owner   => 'root',
     group   => 'root',
-    require => Package[$strongswan::params::package],
-    notify  => Class['Strongswan::Service'],
+    content => template('strongswan/charon.conf.erb'),
+    require => Class['strongswan'],
+    notify  => Class['strongswan::service'],
   }
 }

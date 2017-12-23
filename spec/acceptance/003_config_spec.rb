@@ -2,7 +2,7 @@ require 'spec_helper_acceptance'
 
 describe 'connection:' do
   describe 'default' do
-    it 'should run successfully' do
+    it 'runs successfully' do
       pp = '
           class { \'strongswan\': }
           strongswan::conn { \'%default\':
@@ -15,18 +15,6 @@ describe 'connection:' do
               "margintime"  => "3m",
               "closeaction" => "restart",
               "dpdaction"   => "restart",
-            }
-          }
-          strongswan::conn { \'IPsec-IKEv2\':
-            options => {
-              "rekey"         => "no",
-              "left"          => "%any",
-              "leftsubnet"    => "0.0.0.0/0",
-              "leftcert"      => "vpnHostCert.der",
-              "right"         => "%any",
-              "rightdns"      => "8.8.8.8,8.8.4.4",
-              "rightsourceip" => "10.10.10.0/24",
-              "auto"          => "add",
             }
           }
           strongswan::conn { \'IKEv2-EAP\':
@@ -42,26 +30,12 @@ describe 'connection:' do
             options => {
               "EAP" => "SuperSecretPass",
             }
-          }
-          strongswan::logging { "/var/log/strongswan.log":
-            logger => "filelog",
-            options  => {
-              "time_format" => "%b %e %T",
-              "ike_name"    => "yes",
-              "append"      => "no",
-              "default"     => "2",
-              "flush_line"  => "yes",
-            }
-          }
-          strongswan::logging { "stderr":
-            logger  => "filelog",
-            options => {
-              "ike" => "0",
-              "knl" => "0",
-            }
           }'
       apply_manifest(pp, catch_failures: true) do |r|
         expect(r.stderr).not_to eq(/error/i)
+      end
+      describe service('strongswan') do
+        it { is_expected.to be_running }
       end
     end
   end

@@ -1,13 +1,26 @@
-# strongSwan setup configuration.
+# Class: strongswan::setup
+#
+# This module manages Strongswan 'setup' section in ipsec.conf
+#
+# Sample Usage:
+#
+# class{'strongswan::setup':
+#   options => {
+#     'strictcrlpolicy' => 'yes',
+#     'uniqueids'       => 'never',
+#     }
+#   }
+# }
+#
+
 class strongswan::setup(
   $options = {},
-) inherits strongswan::params {
-
+) {
   concat::fragment { 'ipsec_conf_setup':
-    ensure  => present,
     content => template('strongswan/ipsec_conf_setup.erb'),
-    target  => $strongswan::params::ipsec_conf,
+    target  => $::strongswan::ipsec_conf,
     order   => '02',
-    notify  => Class['Strongswan::Service']
+    require => Class['Strongswan'],
+    notify  => Class['Strongswan::Service'],
   }
 }

@@ -15,10 +15,11 @@
 # https://download.strongswan.org/osx/
 
 class {'strongswan':}
+class {'strongswan::setup': }
 class {'strongswan::pki::ca':}
 
 strongswan::pki::certificate {'server':
-  san => ['@strongswan-1','strongswan-1','192.168.33.42', '@192.168.33.42']
+  san => ['@strongswan-1','strongswan-1','192.168.33.42', '@192.168.33.42'],
 }
 
 
@@ -55,25 +56,31 @@ strongswan::conn {'ikev2-eap-mschapv2':
     'rightsourceip' => '10.10.10.0/24',
     'rightdns'      => '8.8.8.8,8.8.4.4',
     'rightsendcert' => 'never',
-    'eap_identity'  => '%identity'
-  }
-}
-
-strongswan::logging { '/var/log/vpn.log':
-  logger  => 'filelog',
-  options => {
-    'time_format' => '%b %e %T',
-    'ike_name'    => 'yes',
-    'append'      => 'no',
-    'default'     => '1',
-    'flush_line'  => 'yes',
+    'eap_identity'  => '%identity',
   },
 }
 
-strongswan::logging { 'stderr':
-  logger  => 'filelog',
+strongswan::charon { '/var/log/vpn2.log':
   options => {
-    'ike' => '2',
-    'knl' => '2',
+    'filelog' => {
+      '/var/log/vpn2.log' => {
+        'time_format' => '%b %e %T',
+        'ike_name'    => 'yes',
+        'append'      => 'no',
+        'default'     => '1',
+        'flush_line'  => 'yes',
+      },
+      'stderr'            => {
+        'ike' => '2',
+        'knl' => '2',
+      },
+    },
+  },
+}
+
+strongswan::charon { 'dns':
+  options => {
+    'dns1' => '8.8.8.8',
+    'dns2' => '8.8.4.4',
   },
 }

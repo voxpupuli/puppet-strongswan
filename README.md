@@ -1,17 +1,34 @@
 # puppet-strongswan [![Build Status](https://travis-ci.org/CommanderK5/puppet-strongswan.svg?branch=master)](https://travis-ci.org/CommanderK5/puppet-strongswan)
 
-This Puppet module contains configurations for strongSwan. 
+This Puppet module contains configurations for Strongswan.
 ## Example usage
 
-strongSwan default config:
+### StrongSwan default config:
 
 ```puppet
 include strongswan
 ```
 
-### Default configuration
+### Strongswan self-signed CA:
 
-*conn %default* configurations can be set as follows:
+```puppet
+include strongswan::pki::ca
+```
+
+### Strongswan certificates management:
+
+strongswan::pki::certificate {'server':
+  common_name => 'myvpn.local',
+  san         => ['@strongswan-1','strongswan-1','192.168.33.42', '@192.168.33.42'],
+}
+
+strongswan::pki::certificate {'John Smith':
+  common_name  => 'Jonh Smith',
+  p12_password => 'mySuperStrongPass',
+}
+
+### Example configuration ipsec.conf:
+
 ```puppet
 strongswan::conn { '%default':
   options => {
@@ -25,11 +42,7 @@ strongswan::conn { '%default':
     "dpdaction"   => "restart",
   }
 }
-```
 
-Parameters for an IPsec gateway server:
-
-```puppet
 strongswan::conn { 'IPsec-IKEv2':
   options => {
     "rekey"         => "no",
@@ -52,7 +65,11 @@ strongswan::conn { 'IKEv2-EAP':
     "rightsendcert" => "never",
     "eap_identity"  => "%any",
   }
+```
 
+### ipsec.secrets
+
+```puppet
 strongswan::secrets { '%any':
   options => {
     'RSA' => 'vpnHostKey.der keypass'
@@ -65,50 +82,48 @@ strongswan::secrets { 'John':
   }
 }
 ```
-logging configuration example:
+
+### charon daemon configuration example:
 
 ```puppet
-strongswan::logging { '/var/log/strongswan.log':
-  logger  => 'filelog',
+strongswan::charon { 'dns':
   options => {
-    'time_format' => '%b %e %T',
-    'ike_name'    => 'yes',
-    'append'      => 'no',
-    'default'     => '2',
-    'flush_line'  => 'yes'
-  }
-}
-```
-```puppet
-strongswan::logging { 'stderr':
-  logger  => 'filelog',
-  options => {
-    'ike' => '0',
-    'knl' => '0'
+    'dns1' => '8.8.8.8',
+    'dns2' => '8.8.4.4'
   }
 }
 ```
 
-charon daemon configuration example:
+### charon logging configuration example:
 
 ```puppet
-class { 'strongswan::charon':
-  initiator_only        => "yes",
-  integrity_test        => "yes",
-  crypto_test_on_add    => "yes",
-  crypto_test_on_create => "yes",
-  crypto_test_required  => "yes",
+strongswan::charon { '/var/log/vpn.log':
+  options => {
+    'filelog' => {
+      '/var/log/vpn.log' => {
+        'time_format' => '%b %e %T',
+        'ike_name'    => 'yes',
+        'append'      => 'no',
+        'default'     => '1',
+        'flush_line'  => 'yes',
+      },
+      'stderr' => {
+        'ike' => '2',
+        'knl' => '2',
+      }
+    }
+  }
 }
 ```
 
 ### Setup configuration
 
-The IPsec 'config setup' section:
+### The IPsec 'config setup' section in ipsec.conf:
 
 ```puppet
 class { 'strongswan::setup':
   options => {
-    'charondebug'     => '"ike 2, knl 2, cfg 2"'
+    'charondebug' => '"ike 2, knl 2, cfg 2"'
   }
 }
 ```
