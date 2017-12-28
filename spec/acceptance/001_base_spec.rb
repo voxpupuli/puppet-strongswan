@@ -23,6 +23,7 @@ describe 'strongswan default:' do
     end
     describe file('/etc/strongswan/ipsec.conf') do
       it { is_expected.to be_file }
+      it { is_expected.to contain 'setup' }
     end
     describe file('/etc/strongswan/ipsec.secrets') do
       it { is_expected.to be_file }

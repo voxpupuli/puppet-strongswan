@@ -26,6 +26,11 @@ describe 'connection:' do
               "eap_identity"  => "%any",
             }
           }
+          strongswan::secrets { " ":
+            options => {
+              "RSA" => "server.der",
+            },
+          }
           strongswan::secrets { "John":
             options => {
               "EAP" => "SuperSecretPass",
@@ -34,9 +39,18 @@ describe 'connection:' do
       apply_manifest(pp, catch_failures: true) do |r|
         expect(r.stderr).not_to eq(/error/i)
       end
-      describe service('strongswan') do
-        it { is_expected.to be_running }
-      end
     end
+  end
+  describe service('strongswan') do
+    it { is_expected.to be_running }
+  end
+  describe file('/etc/strongswan/ipsec.conf') do
+    it { is_expected.to be_file }
+    it { is_expected.to contain 'conn IKEv2-EAP' }
+    it { is_expected.to contain 'conn %default' }
+  end
+  describe file('/etc/strongswan/ipsec.secrets') do
+    it { is_expected.to be_file }
+    it { is_expected.to contain '  : RSA server.der' }
   end
 end
