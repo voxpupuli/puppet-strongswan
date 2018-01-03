@@ -17,6 +17,7 @@ include strongswan::pki::ca
 
 ### Strongswan certificates management:
 
+```puppet
 strongswan::pki::certificate {'server':
   common_name => 'myvpn.local',
   san         => ['@strongswan-1','strongswan-1','192.168.33.42', '@192.168.33.42'],
@@ -26,6 +27,7 @@ strongswan::pki::certificate {'John Smith':
   common_name  => 'Jonh Smith',
   p12_password => 'mySuperStrongPass',
 }
+```
 
 ### Example configuration ipsec.conf:
 
