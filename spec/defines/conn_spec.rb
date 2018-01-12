@@ -20,20 +20,20 @@ describe 'strongswan::conn', type: :define do
       end
 
       it {
-        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default') \
-          .with_content(/^conn ikev2-default$/)
+        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default'). \
+          with_content(%r{^conn ikev2-default$})
       }
       it {
-        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default') \
-          .with_content(/^\s*ike=aes128gcm128-prfsha256-ecp256/)
+        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default'). \
+          with_content(%r{^\s*ike=aes128gcm128-prfsha256-ecp256})
       }
       it {
-        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default') \
-          .with_content(/^\s*esp=aes128gcm128-ecp256/)
+        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default'). \
+          with_content(%r{^\s*esp=aes128gcm128-ecp256})
       }
       it {
-        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default') \
-          .with_content(/^\s*keyexchange=ikev2/)
+        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default'). \
+          with_content(%r{^\s*keyexchange=ikev2})
       }
     end
   end

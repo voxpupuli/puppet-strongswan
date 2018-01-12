@@ -1,20 +1,14 @@
 require 'spec_helper_acceptance'
 
 describe 'strongswan default:' do
-  describe 'run puppet' do
+  context 'default parameters' do
     it 'runs successfully' do
       pp = "class { 'strongswan': }
             class { 'strongswan::setup': }
             class { 'strongswan::pki::ca':}"
 
-      apply_manifest(pp, catch_failures: true) do |r|
-        expect(r.stderr).not_to eq(/error/i)
-      end
-
-      apply_manifest(pp, catch_failures: true) do |r|
-        expect(r.stderr).not_to eq(/error/i)
-        expect(r.exit_code).to be_zero
-      end
+      apply_manifest(pp, catch_failures: true)
+      apply_manifest(pp, catch_changes:  true)
     end
   end
   describe 'componets:' do
