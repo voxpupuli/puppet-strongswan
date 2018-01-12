@@ -12,16 +12,16 @@ describe 'strongswan::setup' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_concat__fragment('ipsec_conf_setup').with_target('/etc/strongswan/ipsec.conf') }
         it {
-          is_expected.to contain_concat__fragment('ipsec_conf_setup') \
-            .with_content(/^\s*config setup/)
+          is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
+            with_content(%r{^\s*config setup})
         }
         it {
-          is_expected.to contain_concat__fragment('ipsec_conf_setup') \
-            .without_content(/^\s*strictcrlpolicy=yes/)
+          is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
+            without_content(%r{^\s*strictcrlpolicy=yes})
         }
         it {
-          is_expected.to contain_concat__fragment('ipsec_conf_setup') \
-            .without_content(/^\s*uniqueids=never/)
+          is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
+            without_content(%r{^\s*uniqueids=never})
         }
       end
 
@@ -36,20 +36,20 @@ describe 'strongswan::setup' do
 
         it { is_expected.to compile.with_all_deps }
         it {
-          is_expected.to contain_concat__fragment('ipsec_conf_setup') \
-            .with_target('/etc/strongswan/ipsec.conf')
+          is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
+            with_target('/etc/strongswan/ipsec.conf')
         }
         it {
-          is_expected.to contain_concat__fragment('ipsec_conf_setup') \
-            .with_content(/^\s*config setup/)
+          is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
+            with_content(%r{^\s*config setup})
         }
         it {
-          is_expected.to contain_concat__fragment('ipsec_conf_setup') \
-            .with_content(/^\s*strictcrlpolicy=yes/)
+          is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
+            with_content(%r{^\s*strictcrlpolicy=yes})
         }
         it {
-          is_expected.to contain_concat__fragment('ipsec_conf_setup') \
-            .with_content(/^\s*uniqueids=never/)
+          is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
+            with_content(%r{^\s*uniqueids=never})
         }
       end
     end

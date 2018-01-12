@@ -18,13 +18,13 @@ describe 'strongswan::secrets', type: :define do
       end
 
       it {
-        is_expected.to contain_concat__fragment('ipsec_secrets_secret-user') \
-          .with_content(/# Secrets for user\./)
+        is_expected.to contain_concat__fragment('ipsec_secrets_secret-user'). \
+          with_content(%r{# Secrets for user\.})
       }
 
       it {
-        is_expected.to contain_concat__fragment('ipsec_secrets_secret-user') \
-          .with_content(/: ECDSA user\.der/)
+        is_expected.to contain_concat__fragment('ipsec_secrets_secret-user'). \
+          with_content(%r{: ECDSA user\.der})
       }
     end
   end

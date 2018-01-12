@@ -16,7 +16,7 @@ describe 'pki:' do
             }'
 
       apply_manifest(pp, catch_failures: true) do |r|
-        expect(r.stderr).not_to eq(/error/i)
+        expect(r.stderr).not_to eq(%r{error}i)
       end
     end
   end
