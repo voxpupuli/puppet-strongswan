@@ -6,6 +6,7 @@ Thank you for contributing to this project!
 - Our vulnerabilities reporting process is at https://voxpupuli.org/security/
 
 -->
+
 #### Pull Request (PR) description
 <!--
     Replace this comment with a description of your pull request.
