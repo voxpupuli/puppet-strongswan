@@ -1,12 +1,12 @@
 {
-  "name": "CommanderK5-strongswan",
+  "name": "puppet-strongswan",
   "version": "1.0.0",
-  "author": "Lukasz Rohde",
-  "summary": "Puppet Spacewalk module",
+  "author": "Vox Pupuli",
+  "summary": "Puppet strongswan module",
   "license": "Apache-2.0",
-  "source": "https://github.com/CommanderK5/puppet-strongswan",
-  "project_page": "https://github.com/CommanderK5/puppet-strongswan",
-  "issues_url": "https://github.com/CommanderK5/puppet-strongswan/issues",
+  "source": "https://github.com/voxpupuli/puppet-strongswan.git",
+  "project_page": "https://github.com/voxpupuli/puppet-strongswan",
+  "issues_url": "https://github.com/voxpupuli/puppet-strongswan/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
