@@ -1,6 +1,6 @@
 {
   "name": "puppet-strongswan",
-  "version": "0.3.0",
+  "version": "0.3.1-rc0",
   "author": "Vox Pupuli",
   "summary": "Puppet strongswan module",
   "license": "Apache-2.0",
