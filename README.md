@@ -130,6 +130,13 @@ class { 'strongswan::setup':
 }
 ```
 
+## Compatibility
+
+Supports:
+
+* RedHat
+* Debian/Ubuntu
+
 ## License
 
 MIT License
