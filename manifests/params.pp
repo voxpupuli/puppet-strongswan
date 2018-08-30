@@ -12,7 +12,7 @@ class strongswan::params {
       $charon_logging_conf = '/etc/strongswan/strongswan.d/charon-logging.conf'
       $charon_conf_dir     = '/etc/strongswan/strongswan.d'
       $service             = 'strongswan'
-    },
+    }
     'Debian': {
       $package             = 'strongswan'
       $ipsec_d_dir         = '/etc/ipsec.d'
