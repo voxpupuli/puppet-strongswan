@@ -20,7 +20,7 @@ define strongswan::pki::certificate (
   $certificate_dir    = $strongswan::certificate_dir,
   $private_key_dir    = $strongswan::private_key_dir,
   $strongswan_dir     = $strongswan::strongswan_dir,
-  $common_name        = $fqdn,
+  $common_name        = fact('fqdn'),
   $country_code       = 'GB',
   $organization       = 'Strongswan',
   $san                = ['localhost'],
