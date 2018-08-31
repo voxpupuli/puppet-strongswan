@@ -19,13 +19,19 @@ describe 'strongswan' do
         it { is_expected.to contain_package('strongswan') }
       end
 
-      context 'strongswan::config' do
-        it { is_expected.to contain_concat('/etc/strongswan/ipsec.conf') }
-        it { is_expected.to contain_concat('/etc/strongswan/ipsec.secrets') }
-      end
-
       context 'strongswam::service' do
         it { is_expected.to contain_service('strongswan') }
+      end
+
+      context 'strongswan::config' do
+        case facts[:osfamily]
+        when 'RedHat'
+          it { is_expected.to contain_concat('/etc/strongswan/ipsec.conf') }
+          it { is_expected.to contain_concat('/etc/strongswan/ipsec.secrets') }
+        when 'Debian'
+          it { is_expected.to contain_concat('/etc/ipsec.conf') }
+          it { is_expected.to contain_concat('/etc/ipsec.secrets') }
+        end
       end
     end
   end

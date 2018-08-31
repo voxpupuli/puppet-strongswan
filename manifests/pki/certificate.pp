@@ -14,12 +14,13 @@
 
 
 define strongswan::pki::certificate (
-  $ca_name            = $::strongswan::pki::ca::ca_name,
-  $ca_certificate_dir = $::strongswan::pki::ca::certificate_dir,
-  $ca_private_key_dir = $::strongswan::pki::ca::private_key_dir,
-  $certificate_dir    = '/etc/strongswan/ipsec.d/certs',
-  $private_key_dir    = '/etc/strongswan/ipsec.d/private',
-  $common_name        = $::fqdn,
+  $ca_name            = $strongswan::pki::ca::ca_name,
+  $ca_certificate_dir = $strongswan::ca_certificate_dir,
+  $ca_private_key_dir = $strongswan::private_key_dir,
+  $certificate_dir    = $strongswan::certificate_dir,
+  $private_key_dir    = $strongswan::private_key_dir,
+  $strongswan_dir     = $strongswan::strongswan_dir,
+  $common_name        = fact('fqdn'),
   $country_code       = 'GB',
   $organization       = 'Strongswan',
   $san                = ['localhost'],
@@ -53,7 +54,7 @@ define strongswan::pki::certificate (
 
   exec {"Convert RSA key ${title} from DER to PEM format":
     command => "openssl rsa -inform DER -in ${private_key_dir}/${title}.der -out ${private_key_dir}/${title}.pem -outform PEM",
-    cwd     => '/etc/strongswan',
+    cwd     => $strongswan_dir,
     creates => [ "${private_key_dir}/${title}.pem"],
     path    => ['/usr/bin', '/usr/sbin'],
     require => Exec["${title} private key"],
@@ -69,7 +70,7 @@ define strongswan::pki::certificate (
 
   exec {"Convert certificate ${title} from DER to PEM format":
     command => "openssl x509 -inform DER -in ${certificate_dir}/${title}.crt -out ${certificate_dir}/${title}.pem -outform PEM",
-    cwd     => '/etc/strongswan',
+    cwd     => $strongswan_dir,
     creates => [ "${certificate_dir}/${title}.pem"],
     path    => ['/usr/bin', '/usr/sbin'],
     require => Exec["${title} certificate"],
@@ -79,7 +80,7 @@ define strongswan::pki::certificate (
   if $p12_password {
     exec {"Create a PKCS#12 container for ${title}":
       command => "openssl pkcs12 -in ${certificate_dir}/${title}.pem -inkey ${private_key_dir}/${title}.pem -certfile ${ca_certificate_dir}/${ca_name}.pem -export -password pass:${p12_password} -out ${certificate_dir}/${title}.p12",
-      cwd     => '/etc/strongswan',
+      cwd     => $strongswan_dir,
       creates => [ "${certificate_dir}/${title}.p12"],
       path    => ['/usr/bin', '/usr/sbin'],
       require => [

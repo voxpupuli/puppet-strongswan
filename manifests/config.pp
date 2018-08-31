@@ -14,7 +14,7 @@ class strongswan::config {
 
   file { 'ipsec.d':
     ensure => directory,
-    path   => $::strongswan::ipsec_d_dir,
+    path   => $strongswan::ipsec_d_dir,
     mode   => '0755',
     owner  => 'root',
     group  => 'root',
@@ -36,7 +36,7 @@ class strongswan::config {
 
   concat::fragment { 'ipsec_conf_header':
     content => template('strongswan/ipsec_conf_header.erb'),
-    target  => $::strongswan::ipsec_conf,
+    target  => $strongswan::ipsec_conf,
     order   => '01',
   }
 
@@ -48,7 +48,7 @@ class strongswan::config {
 
   concat::fragment { 'ipsec_secrets_header':
     content => template('strongswan/ipsec_secrets_header.erb'),
-    target  => $::strongswan::ipsec_secrets,
+    target  => $strongswan::ipsec_secrets,
     order   => '01',
   }
 }
