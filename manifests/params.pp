@@ -2,7 +2,7 @@
 #
 # This class file is not called directly
 class strongswan::params {
-  case $::osfamily {
+  case fact('osfamily') {
     'Redhat': {
       $package             = 'strongswan'
       $strongswan_dir      = '/etc/strongswan'
@@ -33,7 +33,7 @@ class strongswan::params {
     }
 
     default: {
-      fail("${::osfamily} is not supported.")
+      fail("${fact('osfamily')} is not supported.")
     }
   }
 }
