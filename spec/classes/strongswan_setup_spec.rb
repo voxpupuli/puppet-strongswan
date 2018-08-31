@@ -10,7 +10,12 @@ describe 'strongswan::setup' do
 
       describe 'with defaults' do
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_concat__fragment('ipsec_conf_setup').with_target('/etc/strongswan/ipsec.conf') }
+        case facts[:osfamily]
+        when 'RedHat'
+          it { is_expected.to contain_concat__fragment('ipsec_conf_setup').with_target('/etc/strongswan/ipsec.conf') }
+        when 'Debian'
+          it { is_expected.to contain_concat__fragment('ipsec_conf_setup').with_target('/etc/ipsec.conf') }
+        end
         it {
           is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
             with_content(%r{^\s*config setup})
@@ -35,10 +40,19 @@ describe 'strongswan::setup' do
         end
 
         it { is_expected.to compile.with_all_deps }
-        it {
-          is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
-            with_target('/etc/strongswan/ipsec.conf')
-        }
+
+        case facts[:osfamily]
+        when 'RedHat'
+          it {
+            is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
+              with_target('/etc/strongswan/ipsec.conf')
+          }
+        when 'Debian'
+          it {
+            is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
+              with_target('/etc/ipsec.conf')
+          }
+        end
         it {
           is_expected.to contain_concat__fragment('ipsec_conf_setup'). \
             with_content(%r{^\s*config setup})
