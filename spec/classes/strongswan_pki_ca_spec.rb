@@ -9,8 +9,6 @@ describe 'strongswan::pki::ca' do
       let(:pre_condition) { 'include strongswan' }
       let(:params) do
         {
-          certificate_dir: '/etc/strongswan/ipsec.d/cacerts',
-          private_key_dir: '/etc/strongswan/ipsec.d/private',
           common_name: 'vpnCA',
           country_code: 'CC',
           organization: 'Strongswan'
