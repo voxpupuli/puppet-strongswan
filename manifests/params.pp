@@ -2,7 +2,7 @@
 #
 # This class file is not called directly
 class strongswan::params {
-  case $::osfamily {
+  case $osfamily {
     'Redhat': {
       $package             = 'strongswan'
       $strongswan_dir      = '/etc/strongswan'

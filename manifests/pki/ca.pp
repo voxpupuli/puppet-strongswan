@@ -17,10 +17,10 @@
 # }
 
 class strongswan::pki::ca (
-  $ca_certificate_dir = $::strongswan::ca_certificate_dir,
-  $private_key_dir    = $::strongswan::private_key_dir,
-  $ipsec_dir          = $::strongswan::ipsec_d_dir,
-  $strongswan_dir     = $::strongswan::strongswan_dir,
+  $ca_certificate_dir = $strongswan::ca_certificate_dir,
+  $private_key_dir    = $strongswan::private_key_dir,
+  $ipsec_dir          = $strongswan::ipsec_d_dir,
+  $strongswan_dir     = $strongswan::strongswan_dir,
   $common_name        = 'strongswanCA',
   $country_code       = 'GB',
   $organization       = 'Strongswan',

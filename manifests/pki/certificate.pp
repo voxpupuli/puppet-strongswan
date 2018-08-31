@@ -14,13 +14,13 @@
 
 
 define strongswan::pki::certificate (
-  $ca_name            = $::strongswan::pki::ca::ca_name,
-  $ca_certificate_dir = $::strongswan::ca_certificate_dir,
-  $ca_private_key_dir = $::strongswan::private_key_dir,
-  $certificate_dir    = $::strongswan::certificate_dir,
-  $private_key_dir    = $::strongswan::private_key_dir,
-  $strongswan_dir     = $::strongswan::strongswan_dir,
-  $common_name        = $::fqdn,
+  $ca_name            = $strongswan::pki::ca::ca_name,
+  $ca_certificate_dir = $strongswan::ca_certificate_dir,
+  $ca_private_key_dir = $strongswan::private_key_dir,
+  $certificate_dir    = $strongswan::certificate_dir,
+  $private_key_dir    = $strongswan::private_key_dir,
+  $strongswan_dir     = $strongswan::strongswan_dir,
+  $common_name        = $fqdn,
   $country_code       = 'GB',
   $organization       = 'Strongswan',
   $san                = ['localhost'],

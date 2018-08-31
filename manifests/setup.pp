@@ -18,7 +18,7 @@ class strongswan::setup(
 ) {
   concat::fragment { 'ipsec_conf_setup':
     content => template('strongswan/ipsec_conf_setup.erb'),
-    target  => $::strongswan::ipsec_conf,
+    target  => $strongswan::ipsec_conf,
     order   => '02',
     require => Class['Strongswan'],
     notify  => Class['Strongswan::Service'],
