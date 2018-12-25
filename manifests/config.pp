@@ -41,9 +41,11 @@ class strongswan::config {
   }
 
   concat {  $strongswan::params::ipsec_secrets:
-    mode  => '0600',
-    owner => 'root',
-    group => 'root',
+    mode      => '0600',
+    owner     => 'root',
+    group     => 'root',
+    show_diff => false,
+    backup    => false,
   }
 
   concat::fragment { 'ipsec_secrets_header':
