@@ -16,6 +16,7 @@ class strongswan::params {
       $charon_logging_conf = '/etc/strongswan/strongswan.d/charon-logging.conf'
       $charon_conf_dir     = '/etc/strongswan/strongswan.d'
       $service             = 'strongswan'
+      $version             = 'installed'
     }
     'Debian': {
       $package             = 'strongswan'
@@ -30,6 +31,7 @@ class strongswan::params {
       $charon_logging_conf = '/etc/strongswan.d/charon-logging.conf'
       $charon_conf_dir     = '/etc/strongswan.d'
       $service             = 'strongswan'
+      $version             = 'installed'
     }
 
     default: {

@@ -1,6 +1,7 @@
 # Default strongSwan class.
 class strongswan(
   $package_name        = $strongswan::params::package,
+  $version             = $strongswan::params::version,
   $service_name        = $strongswan::params::service,
   $ipsec_d_dir         = $strongswan::params::ipsec_d_dir,
   $ipsec_conf          = $strongswan::params::ipsec_conf,
@@ -20,4 +21,3 @@ class strongswan(
   ~> Class['strongswan::service']
 
 }
-
