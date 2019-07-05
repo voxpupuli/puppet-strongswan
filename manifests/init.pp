@@ -16,7 +16,8 @@ class strongswan(
   include strongswan::service
 
 
-  Class['strongswan::package']
+  Class['Apt::Update']
+  -> Class['strongswan::package']
   -> Class['strongswan::config']
   ~> Class['strongswan::service']
 
