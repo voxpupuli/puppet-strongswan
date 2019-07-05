@@ -10,7 +10,7 @@ class strongswan(
   $charon_logging_conf = $strongswan::params::charon_logging_conf,
 ) inherits strongswan::params {
 
-
+  include ::apt
   include strongswan::package
   include strongswan::config
   include strongswan::service
