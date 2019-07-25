@@ -13,6 +13,6 @@
 class strongswan::package {
 
   package { $strongswan::package_name:
-    ensure => installed,
+    ensure => $strongswan::package_ensure,
   }
 }

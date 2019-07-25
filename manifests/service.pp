@@ -9,7 +9,7 @@
 # This class file is not called directly
 class strongswan::service {
   service { $strongswan::service_name:
-    ensure => running,
-    enable => true,
+    ensure => $strongswan::service_ensure,
+    enable => $strongswan::service_enable,
   }
 }
