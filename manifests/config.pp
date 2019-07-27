@@ -22,7 +22,7 @@ class strongswan::config {
 
   file { 'ipsec.d/private':
     ensure => directory,
-    path   => "${::strongswan::ipsec_d_dir}/private",
+    path   => "${strongswan::ipsec_d_dir}/private",
     mode   => '0700',
     owner  => 'root',
     group  => 'root',
