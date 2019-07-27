@@ -33,7 +33,7 @@ define strongswan::charon (
 
   file {"charon_${fname}":
     ensure  => present,
-    path    => "${::strongswan::charon_conf_dir}/charon_${fname}.conf",
+    path    => "${strongswan::charon_conf_dir}/charon_${fname}.conf",
     mode    => '0640',
     owner   => 'root',
     group   => 'root',
