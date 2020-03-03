@@ -36,4 +36,7 @@ class strongswan::params {
       fail("${fact('osfamily')} is not supported.")
     }
   }
+  $package_ensure          = installed
+  $service_ensure          = running
+  $service_enable          = true
 }
