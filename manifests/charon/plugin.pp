@@ -5,7 +5,7 @@ define strongswan::charon::plugin (
 
   file {"charon_plugin_${name}":
     ensure  => present,
-    path    => "${::strongswan::charon_conf_dir}/charon/${name}.conf",
+    path    => "${strongswan::charon_conf_dir}/charon/${name}.conf",
     mode    => '0640',
     owner   => 'root',
     group   => 'root',
