@@ -9,7 +9,8 @@ define strongswan::charon::plugin (
     mode    => '0640',
     owner   => 'root',
     group   => 'root',
-    content => template('strongswan/charon_plugin.conf.erb'),
+    content => epp('strongswan/charon_plugin.conf.epp',
+                  {name => $name, options => $options}),
     require => Class['strongswan'],
     notify  => Class['strongswan::service'],
   }
