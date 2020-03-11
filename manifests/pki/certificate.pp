@@ -1,31 +1,36 @@
-# Define strongswan::pki::certificate
-# ===========================
+# @summary Manage strongswan certificates
 #
-# Manage strongswan certificates
+# @param common_name
+#   The certificate `Common Name (CN)`
+# @param country_code
+#   The certificate `Country Code (C)`
+# @param organization
+#   The certificate `Organization (O)`
+# @param san
+#   An Array of `Subject Alternative Names`
+# @param p12_password
+#   An optional `PKCS#12` password for the certificate
 #
-# Example configuration:
-# ===========================
-#
-# strongswan::pki::certificate {'server':
-#   common_name => 'myvpn.local',
-#   san         => ['@strongswan-1','strongswan-1','192.168.33.42', '@192.168.33.42']
-# }
-
-
-
+# @example Add a certificate
+#   strongswan::pki::certificate {'server':
+#     common_name => 'myvpn.local',
+#     san         => ['@strongswan-1','strongswan-1','192.168.33.42', '@192.168.33.42']
+#   }
 define strongswan::pki::certificate (
-  $ca_name            = $strongswan::pki::ca::ca_name,
-  $ca_certificate_dir = $strongswan::ca_certificate_dir,
-  $ca_private_key_dir = $strongswan::private_key_dir,
-  $certificate_dir    = $strongswan::certificate_dir,
-  $private_key_dir    = $strongswan::private_key_dir,
-  $strongswan_dir     = $strongswan::strongswan_dir,
-  $common_name        = fact('fqdn'),
-  $country_code       = 'GB',
-  $organization       = 'Strongswan',
-  $san                = ['localhost'],
-  $p12_password       = undef,
-  ){
+  String[1]           $common_name  = fact('fqdn'),
+  String[2]           $country_code = 'GB',
+  String[1]           $organization = 'Strongswan',
+  Array[String[1]]    $san          = ['localhost'],
+  Optional[String[1]] $p12_password = undef,
+){
+  require strongswan::pki::ca
+
+  $ca_name            = $strongswan::pki::ca::ca_name
+  $ca_certificate_dir = $strongswan::ca_certificate_dir
+  $ca_private_key_dir = $strongswan::private_key_dir
+  $certificate_dir    = $strongswan::certificate_dir
+  $private_key_dir    = $strongswan::private_key_dir
+  $strongswan_dir     = $strongswan::strongswan_dir
 
   $san_arr = $san.map | $s | { "--san ${s}" }
   $san_str = join($san_arr,' ')
@@ -34,7 +39,6 @@ define strongswan::pki::certificate (
     command => "${strongswan::pki::ca::pki_command} pki --gen --type rsa --size 2048 --outform der > ${private_key_dir}/${title}.der",
     creates => [ "${private_key_dir}/${title}.der"],
     path    => ['/usr/bin', '/usr/sbin'],
-    require => Class['strongswan::pki::ca'],
   }
 
   file { "${private_key_dir}/${title}.der":
@@ -74,7 +78,6 @@ define strongswan::pki::certificate (
     creates => [ "${certificate_dir}/${title}.pem"],
     path    => ['/usr/bin', '/usr/sbin'],
     require => Exec["${title} certificate"],
-    notify  => Class['Strongswan::Service'],
   }
 
   if $p12_password {
@@ -89,5 +92,4 @@ define strongswan::pki::certificate (
       ],
     }
   }
-
 }

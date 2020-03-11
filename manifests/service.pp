@@ -1,12 +1,6 @@
-# This module manages Strongswan service
+# @summary This class manages the Strongswan service
 #
-# Parameters:
-#
-# There are no default parameters for this class.
-#
-# Sample Usage:
-#
-# This class file is not called directly
+# @api private
 class strongswan::service {
   service { $strongswan::service_name:
     ensure => $strongswan::service_ensure,

@@ -1,10 +1,9 @@
-# Default Strongswan params
+# @summary Operating specific default parameters
 #
-# This class file is not called directly
+# @api private
 class strongswan::params {
   case fact('osfamily') {
     'Redhat': {
-      $package             = 'strongswan'
       $strongswan_dir      = '/etc/strongswan'
       $ipsec_d_dir         = '/etc/strongswan/ipsec.d'
       $ipsec_conf          = '/etc/strongswan/ipsec.conf'
@@ -13,12 +12,9 @@ class strongswan::params {
       $private_key_dir     = '/etc/strongswan/ipsec.d/private'
       $certificate_dir     = '/etc/strongswan/ipsec.d/certs'
       $charon_conf         = '/etc/strongswan/strongswan.d/charon.conf'
-      $charon_logging_conf = '/etc/strongswan/strongswan.d/charon-logging.conf'
       $charon_conf_dir     = '/etc/strongswan/strongswan.d'
-      $service             = 'strongswan'
     }
     'Debian': {
-      $package             = 'strongswan'
       $strongswan_dir      = '/etc/ipsec.d'
       $ipsec_d_dir         = '/etc/ipsec.d'
       $ipsec_conf          = '/etc/ipsec.conf'
@@ -27,9 +23,7 @@ class strongswan::params {
       $private_key_dir     = '/etc/ipsec.d/private'
       $certificate_dir     = '/etc/ipsec.d/certs'
       $charon_conf         = '/etc/strongswan.d/charon.conf'
-      $charon_logging_conf = '/etc/strongswan.d/charon-logging.conf'
       $charon_conf_dir     = '/etc/strongswan.d'
-      $service             = 'strongswan'
     }
 
     default: {

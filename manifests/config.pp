@@ -1,17 +1,7 @@
-# Class: strongswan::config
+# @summary Manages Strongswan basic configuration
 #
-# This module manages Strongswan basic configuration
-#
-# Parameters:
-#
-# There are no default parameters for this class.
-#
-# Sample Usage:
-#
-# This class file is not called directly
-
+# @api private
 class strongswan::config {
-
   file { 'ipsec.d':
     ensure => directory,
     path   => $strongswan::ipsec_d_dir,
@@ -28,7 +18,7 @@ class strongswan::config {
     group  => 'root',
   }
 
-  concat {  $strongswan::params::ipsec_conf:
+  concat {  $strongswan::ipsec_conf:
     mode  => '0644',
     owner => 'root',
     group => 'root',
@@ -40,7 +30,7 @@ class strongswan::config {
     order   => '01',
   }
 
-  concat {  $strongswan::params::ipsec_secrets:
+  concat {  $strongswan::ipsec_secrets:
     mode      => '0600',
     owner     => 'root',
     group     => 'root',
