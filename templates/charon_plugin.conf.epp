@@ -1,0 +1,28 @@
+<%- | String $name,
+      Hash   $options
+| -%>
+#
+# File managed by Puppet
+#
+
+<%= $name %> {
+<%- $options.each | $opt_key, $opt_val | { -%>
+  <%- if $opt_val.is_a(Hash) { -%>
+    <%= $opt_key %> {
+    <%- $opt_val.each |$v_key, $v_val| { -%>
+      <%- if $v_val.is_a(Hash) { -%>
+        <%= $v_key %> {
+        <%- $v_val.each |$key, $val| { -%>
+            <%= $key %> = <%= $val %>
+        <%- } -%>
+        }
+      <%- } else { -%>
+        <%= $v_key %> = <%= $v_val %>
+      <%- } -%>
+    <%- } -%>
+    }
+  <%- } else { -%>
+    <%= $opt_key %> = <%= $opt_val %>
+  <%- } -%>
+<%- } -%>
+}
