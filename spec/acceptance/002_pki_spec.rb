@@ -1,6 +1,12 @@
 require 'spec_helper_acceptance'
 
 describe 'pki:' do
+  case fact('os.family')
+  when 'Debian'
+    ipsec_d_dir = '/etc/ipsec.d'
+  when 'RedHat'
+    ipsec_d_dir = '/etc/strongswan/ipsec.d'
+  end
   describe 'default' do
     it 'runs successfully' do
       pp = 'class {"strongswan":}
@@ -23,27 +29,27 @@ describe 'pki:' do
   describe service('strongswan') do
     it { is_expected.to be_running }
   end
-  describe file('/etc/strongswan/ipsec.d/private/StrongswanVPN.der') do
+  describe file("#{ipsec_d_dir}/private/StrongswanVPN.der") do
     it { is_expected.to be_file }
     it { is_expected.to be_mode 600 }
   end
-  describe file('/etc/strongswan/ipsec.d/certs/StrongswanVPN.crt') do
+  describe file("#{ipsec_d_dir}/certs/StrongswanVPN.crt") do
     it { is_expected.to be_file }
   end
-  describe file('/etc/strongswan/ipsec.d/certs/StrongswanVPN.pem') do
+  describe file("#{ipsec_d_dir}/certs/StrongswanVPN.pem") do
     it { is_expected.to be_file }
   end
-  describe file('/etc/strongswan/ipsec.d/private/user1.der') do
+  describe file("#{ipsec_d_dir}/private/user1.der") do
     it { is_expected.to be_file }
     it { is_expected.to be_mode 600 }
   end
-  describe file('/etc/strongswan/ipsec.d/certs/user1.crt') do
+  describe file("#{ipsec_d_dir}/certs/user1.crt") do
     it { is_expected.to be_file }
   end
-  describe file('/etc/strongswan/ipsec.d/certs/user1.pem') do
+  describe file("#{ipsec_d_dir}/certs/user1.pem") do
     it { is_expected.to be_file }
   end
-  describe file('/etc/strongswan/ipsec.d/certs/user1.p12') do
+  describe file("#{ipsec_d_dir}/certs/user1.p12") do
     it { is_expected.to be_file }
   end
 end

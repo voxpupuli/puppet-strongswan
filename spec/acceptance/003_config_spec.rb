@@ -1,6 +1,14 @@
 require 'spec_helper_acceptance'
 
 describe 'connection:' do
+  case fact('os.family')
+  when 'Debian'
+    ipsec_conf = '/etc/ipsec.conf'
+    ipsec_secrets = '/etc/ipsec.secrets'
+  when 'RedHat'
+    ipsec_conf = '/etc/strongswan/ipsec.conf'
+    ipsec_secrets = '/etc/strongswan/ipsec.secrets'
+  end
   describe 'default' do
     it 'runs successfully' do
       pp = '
@@ -44,12 +52,12 @@ describe 'connection:' do
   describe service('strongswan') do
     it { is_expected.to be_running }
   end
-  describe file('/etc/strongswan/ipsec.conf') do
+  describe file(ipsec_conf) do
     it { is_expected.to be_file }
     it { is_expected.to contain 'conn IKEv2-EAP' }
     it { is_expected.to contain 'conn %default' }
   end
-  describe file('/etc/strongswan/ipsec.secrets') do
+  describe file(ipsec_secrets) do
     it { is_expected.to be_file }
     it { is_expected.to contain '  : RSA server.der' }
   end

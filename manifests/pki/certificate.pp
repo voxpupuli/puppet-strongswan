@@ -31,7 +31,7 @@ define strongswan::pki::certificate (
   $san_str = join($san_arr,' ')
 
   exec {"${title} private key":
-    command => "strongswan pki --gen --type rsa --size 2048 --outform der > ${private_key_dir}/${title}.der",
+    command => "${strongswan::pki::ca::pki_command} pki --gen --type rsa --size 2048 --outform der > ${private_key_dir}/${title}.der",
     creates => [ "${private_key_dir}/${title}.der"],
     path    => ['/usr/bin', '/usr/sbin'],
     require => Class['strongswan::pki::ca'],
@@ -46,7 +46,7 @@ define strongswan::pki::certificate (
   }
 
   exec {"${title} certificate":
-    command => "strongswan pki --pub --in ${private_key_dir}/${title}.der --type rsa | strongswan pki --issue --lifetime 730 --cacert ${ca_certificate_dir}/${ca_name}.crt --cakey ${ca_private_key_dir}/${ca_name}.der --dn \"C=${country_code}, O=${organization}, CN=${common_name}\" ${san_str} --flag serverAuth --flag ikeIntermediate --outform der > ${certificate_dir}/${title}.crt",
+    command => "${strongswan::pki::ca::pki_command} pki --pub --in ${private_key_dir}/${title}.der --type rsa | ${strongswan::pki::ca::pki_command} pki --issue --lifetime 730 --cacert ${ca_certificate_dir}/${ca_name}.crt --cakey ${ca_private_key_dir}/${ca_name}.der --dn \"C=${country_code}, O=${organization}, CN=${common_name}\" ${san_str} --flag serverAuth --flag ikeIntermediate --outform der > ${certificate_dir}/${title}.crt",
     creates => [ "${certificate_dir}/${title}.crt"],
     path    => ['/usr/bin', '/usr/sbin'],
     require => File["${private_key_dir}/${title}.der"],
