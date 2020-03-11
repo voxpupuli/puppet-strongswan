@@ -1,6 +1,6 @@
 # Configure charon pluging
 define strongswan::charon::plugin (
-  $options    = {},
+  Hash $options    = {},
 ) {
 
   file {"charon_plugin_${name}":
