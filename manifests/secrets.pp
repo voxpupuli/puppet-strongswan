@@ -24,7 +24,7 @@ define strongswan::secrets(
   Array[String[1]] $selectors = [$title],
   Hash $options               = {},
 ) {
-  require strongswan::package
+  include strongswan
 
   concat::fragment { "ipsec_secrets_secret-${title}":
     content => template('strongswan/ipsec_secrets_secret.erb'),

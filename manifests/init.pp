@@ -40,7 +40,5 @@ class strongswan(
 
   Strongswan::Charon <| |>           ~> Class['strongswan::service']
   Strongswan::Charon::Plugin <| |>   ~> Class['strongswan::service']
-  Strongswan::Conn <| |>             ~> Class['strongswan::service']
   Strongswan::Pki::Certificate <| |> ~> Class['strongswan::service']
-  Strongswan::Secrets <| |>          ~> Class['strongswan::service']
 }

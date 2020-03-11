@@ -47,7 +47,7 @@ define strongswan::conn(
   String[1] $conn_name = $title,
   Hash      $options = {},
 ) {
-  require strongswan::package
+  include strongswan
 
   concat::fragment { "ipsec_conf_conn-${conn_name}":
     content => template('strongswan/ipsec_conf_conn.erb'),
