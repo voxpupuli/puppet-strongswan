@@ -6,7 +6,6 @@ describe 'strongswan::setup' do
       let(:facts) do
         facts
       end
-      let(:pre_condition) { 'include strongswan' }
 
       describe 'with defaults' do
         it { is_expected.to compile.with_all_deps }

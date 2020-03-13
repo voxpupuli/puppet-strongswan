@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe 'strongswan::conn', type: :define do
-  let(:pre_condition) { 'include strongswan' }
-
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do

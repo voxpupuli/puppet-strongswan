@@ -1,16 +1,8 @@
-# Class strongswan::package
+# @summary This class manages Strongswan package installation
 #
-# This module manages Strongswan package installation
-#
-# Parameters:
-#
-# There are no default parameters for this class.
-#
-# Sample Usage:
-#
-# This class file is not called directly
-
+# @api private
 class strongswan::package {
+  include strongswan
 
   package { $strongswan::package_name:
     ensure => $strongswan::package_ensure,

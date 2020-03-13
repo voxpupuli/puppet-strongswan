@@ -1,30 +1,32 @@
-# Class: strongswan::pki::ca
+# @summary This class manages the Strongswan CA
 #
-# This module manages Strongswan CA
+# @param common_name
+#   The Certificate Authority `Common Name (CN)`
+# @param country_code
+#   The Certificate Authority `Country Code (C)`
+# @param organization
+#   The Certificate Authority `Organization (O)`
 #
-# Example configuration:
-# =======================
+# @example Default CA configuration
+#   include strongswan::pki::ca
 #
-# #Default:
-# include strongswan::pki::ca
-#
-#
-# #With Params:
-# class {'strongswan::pki::ca':
-#   $common_name     => 'myVPN',
-#   $country_code    => 'XX',
-#   $organization    => 'myOrg',
-# }
-
+# @example Configure the CA with custom options
+#   class {'strongswan::pki::ca':
+#     $common_name  => 'myVPN',
+#     $country_code => 'XX',
+#     $organization => 'myOrg',
+#   }
 class strongswan::pki::ca (
-  $ca_certificate_dir = $strongswan::ca_certificate_dir,
-  $private_key_dir    = $strongswan::private_key_dir,
-  $ipsec_dir          = $strongswan::ipsec_d_dir,
-  $strongswan_dir     = $strongswan::strongswan_dir,
-  $common_name        = 'strongswanCA',
-  $country_code       = 'GB',
-  $organization       = 'Strongswan',
+  String[1] $common_name  = 'strongswanCA',
+  String[2] $country_code = 'GB',
+  String[1] $organization = 'Strongswan',
 ){
+  require strongswan::package
+
+  $ca_certificate_dir = $strongswan::ca_certificate_dir
+  $private_key_dir    = $strongswan::private_key_dir
+  $ipsec_dir          = $strongswan::ipsec_d_dir
+  $strongswan_dir     = $strongswan::strongswan_dir
 
   $ca_name = regsubst($common_name, ' ', '_', 'G')
 
@@ -43,7 +45,6 @@ class strongswan::pki::ca (
     cwd     => $strongswan_dir,
     creates => [ "${private_key_dir}/${ca_name}.der"],
     path    => ['/usr/bin', '/usr/sbin'],
-    require => Class['strongswan'],
   }
 
   file { "${private_key_dir}/${ca_name}.der":
@@ -68,7 +69,7 @@ class strongswan::pki::ca (
     creates => [ "${ca_certificate_dir}/${ca_name}.pem"],
     path    => ['/usr/bin', '/usr/sbin'],
     require => Exec['Create self-signed CA certificate'],
-    notify  => Class['Strongswan::Service'],
   }
 
+  Class['strongswan::pki::ca'] ~> Class['strongswan::service']
 }

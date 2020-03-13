@@ -6,7 +6,6 @@ describe 'strongswan::pki::ca' do
       let(:facts) do
         facts
       end
-      let(:pre_condition) { 'include strongswan' }
       let(:params) do
         {
           common_name: 'vpnCA',
