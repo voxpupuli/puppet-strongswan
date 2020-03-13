@@ -4,6 +4,36 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.0.0](https://github.com/voxpupuli/puppet-strongswan/tree/v1.0.0) (2020-03-13)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-strongswan/compare/v0.4.0...v1.0.0)
+
+**Breaking changes:**
+
+- drop Ubuntu 14.04 support [\#29](https://github.com/voxpupuli/puppet-strongswan/pull/29) ([bastelfreak](https://github.com/bastelfreak))
+- modulesync 2.7.0 and drop puppet 4 [\#23](https://github.com/voxpupuli/puppet-strongswan/pull/23) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Enable acceptance tests [\#37](https://github.com/voxpupuli/puppet-strongswan/issues/37)
+- support for charon plugins configuration [\#35](https://github.com/voxpupuli/puppet-strongswan/pull/35) ([ihpu](https://github.com/ihpu))
+- strongswan::secrets support selectors [\#34](https://github.com/voxpupuli/puppet-strongswan/pull/34) ([ihpu](https://github.com/ihpu))
+- Allow specifying of package version and service variables [\#26](https://github.com/voxpupuli/puppet-strongswan/pull/26) ([kuldazbraslav](https://github.com/kuldazbraslav))
+- Don't show diffs from strongSwan secrets file. [\#21](https://github.com/voxpupuli/puppet-strongswan/pull/21) ([jared-gs](https://github.com/jared-gs))
+
+**Fixed bugs:**
+
+- `strongswan::pki::ca` and `strongswan::pki::certificate` aren't working on Debian [\#39](https://github.com/voxpupuli/puppet-strongswan/issues/39)
+- Allow puppetlabs/concat 6.x, puppetlabs/stdlib 6.x [\#24](https://github.com/voxpupuli/puppet-strongswan/pull/24) ([dhoppe](https://github.com/dhoppe))
+
+**Closed issues:**
+
+- Not able to configure ensure for service [\#16](https://github.com/voxpupuli/puppet-strongswan/issues/16)
+
+**Merged pull requests:**
+
+- Refactor and document with puppet-strings [\#36](https://github.com/voxpupuli/puppet-strongswan/pull/36) ([alexjfisher](https://github.com/alexjfisher))
+
 ## [v0.4.0](https://github.com/voxpupuli/puppet-strongswan/tree/v0.4.0) (2018-10-14)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-strongswan/compare/v0.3.0...v0.4.0)
