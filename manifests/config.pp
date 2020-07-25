@@ -18,7 +18,7 @@ class strongswan::config {
     group  => 'root',
   }
 
-  concat {  $strongswan::ipsec_conf:
+  concat { $strongswan::ipsec_conf:
     mode  => '0644',
     owner => 'root',
     group => 'root',
@@ -30,7 +30,7 @@ class strongswan::config {
     order   => '01',
   }
 
-  concat {  $strongswan::ipsec_secrets:
+  concat { $strongswan::ipsec_secrets:
     mode      => '0600',
     owner     => 'root',
     group     => 'root',

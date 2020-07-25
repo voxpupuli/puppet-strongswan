@@ -12,15 +12,14 @@
 
 # Strongswan IKEv2-EAP-TLS configuration example
 
+class { 'strongswan': }
+class { 'strongswan::pki::ca': }
 
-class {'strongswan':}
-class {'strongswan::pki::ca':}
-
-strongswan::pki::certificate {'server':
+strongswan::pki::certificate { 'server':
   san => ['@strongswan-1','strongswan-1','192.168.33.42', '@192.168.33.42'],
 }
 
-strongswan::pki::certificate {'user1':
+strongswan::pki::certificate { 'user1':
   common_name  => 'user1@strongswan-1.local',
   p12_password => 'StrongPass',
 }
@@ -31,7 +30,7 @@ strongswan::secrets { ' ':
   },
 }
 
-strongswan::conn {'IKEv2-EAP-TLS':
+strongswan::conn { 'IKEv2-EAP-TLS':
   options => {
     'auto'          => 'add',
     'type'          => 'tunnel',

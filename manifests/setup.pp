@@ -11,7 +11,7 @@
 #       }
 #     }
 #   }
-class strongswan::setup(
+class strongswan::setup (
   Hash $options = {},
 ) {
   include strongswan
