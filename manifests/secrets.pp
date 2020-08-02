@@ -20,7 +20,7 @@
 #    }
 #
 # @see https://linux.die.net/man/5/ipsec.secrets
-define strongswan::secrets(
+define strongswan::secrets (
   Array[String[1]] $selectors = [$title],
   Hash $options               = {},
 ) {

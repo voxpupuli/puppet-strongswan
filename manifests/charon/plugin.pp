@@ -29,6 +29,6 @@ define strongswan::charon::plugin (
     owner   => 'root',
     group   => 'root',
     content => epp('strongswan/charon_plugin.conf.epp',
-                  {name => $name, options => $options}),
+    { name => $name, options => $options }),
   }
 }

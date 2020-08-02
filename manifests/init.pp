@@ -18,7 +18,7 @@
 #    The location of the `ipsec.secrets` file. The default is operating system specific and you should not need to override this setting.
 # @param charon_conf
 #    The location of the main `charon.conf` config file. WARNING, this option is not currently used.
-class strongswan(
+class strongswan (
   $package_name        = 'strongswan',
   $package_ensure      = 'installed',
   $service_name        = 'strongswan',
@@ -29,7 +29,6 @@ class strongswan(
   $ipsec_secrets       = $strongswan::params::ipsec_secrets,
   $charon_conf         = $strongswan::params::charon_conf,
 ) inherits strongswan::params {
-
   contain strongswan::package
   contain strongswan::config
   contain strongswan::service

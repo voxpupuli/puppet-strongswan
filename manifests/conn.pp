@@ -43,7 +43,7 @@
 #        'rightsendcert' => 'never',
 #        'eap_identity'  => '%any',
 #      }
-define strongswan::conn(
+define strongswan::conn (
   String[1] $conn_name = $title,
   Hash      $options = {},
 ) {
