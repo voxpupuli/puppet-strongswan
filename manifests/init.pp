@@ -19,8 +19,10 @@
 # @param charon_conf
 #    The location of the main `charon.conf` config file. WARNING, this option is not currently used.
 class strongswan (
+  $package_manage      = true,
   $package_name        = 'strongswan',
   $package_ensure      = 'installed',
+  $service_manage      = true,
   $service_name        = 'strongswan',
   $service_ensure      = running,
   $service_enable      = true,
