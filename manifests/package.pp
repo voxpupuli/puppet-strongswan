@@ -4,7 +4,9 @@
 class strongswan::package {
   include strongswan
 
-  package { $strongswan::package_name:
-    ensure => $strongswan::package_ensure,
+  if ($strongswan::package_manage) {
+    package { $strongswan::package_name:
+      ensure => $strongswan::package_ensure,
+    }
   }
 }
