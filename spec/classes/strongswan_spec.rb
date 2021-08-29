@@ -20,7 +20,25 @@ describe 'strongswan' do
       end
 
       context 'strongswam::service' do
-        it { is_expected.to contain_service('strongswan') }
+        case facts[:operatingsystem]
+        when 'Debian'
+          case facts[:operatingsystemmajrelease]
+          when '8', '9', '10'
+            strongswan_service_name = 'strongswan'
+          else
+            strongswan_service_name = 'strongswan-starter'
+          end
+        when 'Ubuntu'
+          case facts[:operatingsystemmajrelease]
+          when '16.04', '18.04'
+            strongswan_service_name = 'strongswan'
+          else
+            strongswan_service_name = 'strongswan-starter'
+          end
+        else
+          strongswan_service_name = 'strongswan'
+        end
+        it { is_expected.to contain_service(strongswan_service_name) }
       end
 
       context 'strongswan::config' do

@@ -1,4 +1,5 @@
 require 'spec_helper_acceptance'
+require 'shared_examples'
 
 describe 'pki:' do
   case fact('os.family')
@@ -26,9 +27,7 @@ describe 'pki:' do
       end
     end
   end
-  describe service('strongswan') do
-    it { is_expected.to be_running }
-  end
+  include_examples 'service is running'
   describe file("#{ipsec_d_dir}/private/StrongswanVPN.der") do
     it { is_expected.to be_file }
     it { is_expected.to be_mode 600 }
