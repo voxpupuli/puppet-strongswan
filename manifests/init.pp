@@ -21,7 +21,7 @@
 class strongswan (
   $package_name        = 'strongswan',
   $package_ensure      = 'installed',
-  $service_name        = 'strongswan',
+  $service_name        = $strongswan::params::service_name,
   $service_ensure      = running,
   $service_enable      = true,
   $ipsec_d_dir         = $strongswan::params::ipsec_d_dir,

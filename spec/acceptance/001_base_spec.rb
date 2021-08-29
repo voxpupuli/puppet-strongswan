@@ -1,4 +1,5 @@
 require 'spec_helper_acceptance'
+require 'shared_examples'
 
 describe 'strongswan default' do
   context 'default parameters' do
@@ -30,8 +31,6 @@ describe 'strongswan default' do
     describe file(ipsec_secrets) do
       it { is_expected.to be_file }
     end
-    describe service('strongswan') do
-      it { is_expected.to be_running }
-    end
+    include_examples 'service is running'
   end
 end

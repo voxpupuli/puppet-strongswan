@@ -5,6 +5,7 @@ class strongswan::params {
   case fact('osfamily') {
     'Redhat': {
       $strongswan_dir      = '/etc/strongswan'
+      $service_name        = 'strongswan'
       $ipsec_d_dir         = '/etc/strongswan/ipsec.d'
       $ipsec_conf          = '/etc/strongswan/ipsec.conf'
       $ipsec_secrets       = '/etc/strongswan/ipsec.secrets'
@@ -24,6 +25,25 @@ class strongswan::params {
       $certificate_dir     = '/etc/ipsec.d/certs'
       $charon_conf         = '/etc/strongswan.d/charon.conf'
       $charon_conf_dir     = '/etc/strongswan.d'
+      case fact('os.name') {
+        'debian': {
+          if versioncmp(fact('os.release.full'), '11') >= 0 {
+            $service_name = 'strongswan-starter'
+          } else {
+            $service_name = 'strongswan'
+          }
+        }
+        'ubuntu': {
+          if versioncmp(fact('os.release.full'), '20.04') >= 0 {
+            $service_name = 'strongswan-starter'
+          } else {
+            $service_name = 'strongswan'
+          }
+        }
+        default: {
+          fail("Unsupport OS ${fact('os.name')}")
+        }
+      }
     }
 
     default: {
