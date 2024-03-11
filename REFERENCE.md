@@ -390,7 +390,7 @@ Data type: `String[1]`
 
 The certificate `Common Name (CN)`
 
-Default value: `fact('fqdn')`
+Default value: `$facts['networking']['fqdn']`
 
 ##### <a name="-strongswan--pki--certificate--country_code"></a>`country_code`
 
