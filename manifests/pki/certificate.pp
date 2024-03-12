@@ -17,7 +17,7 @@
 #     san         => ['@strongswan-1','strongswan-1','192.168.33.42', '@192.168.33.42']
 #   }
 define strongswan::pki::certificate (
-  String[1]           $common_name  = fact('fqdn'),
+  String[1]           $common_name  = $facts['networking']['fqdn'],
   String[2]           $country_code = 'GB',
   String[1]           $organization = 'Strongswan',
   Array[String[1]]    $san          = ['localhost'],
