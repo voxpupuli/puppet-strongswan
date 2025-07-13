@@ -19,7 +19,7 @@ describe 'strongswan::pki::certificate', type: :define do
       context 'with defaults' do
         let(:title) { 'john_smith' }
         let(:ipsec_dir) do
-          if facts[:osfamily] == 'RedHat'
+          if facts[:os]['family'] == 'RedHat'
             '/etc/strongswan/ipsec.d'
           else
             '/etc/ipsec.d'

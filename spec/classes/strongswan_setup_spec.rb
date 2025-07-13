@@ -9,7 +9,7 @@ describe 'strongswan::setup' do
 
       describe 'with defaults' do
         it { is_expected.to compile.with_all_deps }
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'RedHat'
           it { is_expected.to contain_concat__fragment('ipsec_conf_setup').with_target('/etc/strongswan/ipsec.conf') }
         when 'Debian'
@@ -40,7 +40,7 @@ describe 'strongswan::setup' do
 
         it { is_expected.to compile.with_all_deps }
 
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'RedHat'
           it {
             is_expected.to contain_concat__fragment('ipsec_conf_setup'). \

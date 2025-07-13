@@ -20,16 +20,16 @@ describe 'strongswan' do
       end
 
       context 'strongswam::service' do
-        case facts[:operatingsystem]
+        case facts[:os]['name']
         when 'Debian'
-          case facts[:operatingsystemmajrelease]
+          case facts[:os]['release']['major']
           when '8', '9', '10'
             strongswan_service_name = 'strongswan'
           else
             strongswan_service_name = 'strongswan-starter'
           end
         when 'Ubuntu'
-          case facts[:operatingsystemmajrelease]
+          case facts[:os]['release']['major']
           when '16.04', '18.04'
             strongswan_service_name = 'strongswan'
           else
@@ -42,7 +42,7 @@ describe 'strongswan' do
       end
 
       context 'strongswan::config' do
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'RedHat'
           it { is_expected.to contain_concat('/etc/strongswan/ipsec.conf') }
           it { is_expected.to contain_concat('/etc/strongswan/ipsec.secrets') }
