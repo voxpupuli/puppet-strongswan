@@ -1,4 +1,4 @@
-# [![Build Status](https://travis-ci.org/voxpupuli/puppet-strongswan.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-strongswan)
+# ![Build Status](https://github.com/voxpupuli/puppet-strongswan/actions/workflows/ci.yml/badge.svg?branch=master)
 
 This Puppet module contains configurations for Strongswan.
 ## Example usage
