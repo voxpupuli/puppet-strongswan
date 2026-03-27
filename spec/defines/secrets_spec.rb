@@ -10,33 +10,33 @@ describe 'strongswan::secrets', type: :define do
       let :params do
         {
           options: {
-            'ECDSA' => 'user.der'
-          }
+            'ECDSA' => 'user.der',
+          },
         }
       end
 
       it {
-        is_expected.to contain_concat__fragment('ipsec_secrets_secret-user'). \
-          with_content(%r{# Secrets for user\.})
+        is_expected.to contain_concat__fragment('ipsec_secrets_secret-user')
+          .with_content(%r{# Secrets for user\.})
       }
 
       it {
-        is_expected.to contain_concat__fragment('ipsec_secrets_secret-user'). \
-          with_content(%r{user : ECDSA user\.der})
+        is_expected.to contain_concat__fragment('ipsec_secrets_secret-user')
+          .with_content(%r{user : ECDSA user\.der})
       }
       context 'with empty selectors' do
         let :params do
           {
             selectors: [],
             options: {
-              'RSA' => 'server.key'
-            }
+              'RSA' => 'server.key',
+            },
           }
         end
 
         it {
-          is_expected.to contain_concat__fragment('ipsec_secrets_secret-user'). \
-            with_content(%r{^ : RSA server.key})
+          is_expected.to contain_concat__fragment('ipsec_secrets_secret-user')
+            .with_content(%r{^ : RSA server.key})
         }
       end
       context 'with selectors' do
@@ -44,14 +44,14 @@ describe 'strongswan::secrets', type: :define do
           {
             selectors: ['my_id', '10.1.2.3'],
             options: {
-              'ECDSA' => 'user.der'
-            }
+              'ECDSA' => 'user.der',
+            },
           }
         end
 
         it {
-          is_expected.to contain_concat__fragment('ipsec_secrets_secret-user'). \
-            with_content(%r{my_id 10.1.2.3 : ECDSA user\.der})
+          is_expected.to contain_concat__fragment('ipsec_secrets_secret-user')
+            .with_content(%r{my_id 10.1.2.3 : ECDSA user\.der})
         }
       end
     end

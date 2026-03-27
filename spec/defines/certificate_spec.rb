@@ -12,7 +12,7 @@ describe 'strongswan::pki::certificate', type: :define do
           country_code: 'GB',
           organization: 'Strongswan',
           san: ['localhost,strongswanVPN'],
-          p12_password: 'xyz123'
+          p12_password: 'xyz123',
         }
       end
 
