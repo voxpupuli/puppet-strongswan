@@ -10,7 +10,7 @@ describe 'strongswan::pki::ca' do
         {
           common_name: 'vpnCA',
           country_code: 'CC',
-          organization: 'Strongswan'
+          organization: 'Strongswan',
         }
       end
 

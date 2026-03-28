@@ -10,19 +10,19 @@ describe 'strongswan::charon::plugin' do
       let :params do
         {
           options: {
-            'load' => 'yes'
-          }
+            'load' => 'yes',
+          },
         }
       end
 
       it {
-        is_expected.to contain_file('charon_plugin_eap'). \
-          with_content(%r{load = yes})
+        is_expected.to contain_file('charon_plugin_eap')
+          .with_content(%r{load = yes})
       }
 
       it {
-        is_expected.to contain_file('charon_plugin_eap'). \
-          that_notifies('Class[strongswan::service]')
+        is_expected.to contain_file('charon_plugin_eap')
+          .that_notifies('Class[strongswan::service]')
       }
 
       context 'with complex configuration' do
@@ -33,16 +33,16 @@ describe 'strongswan::charon::plugin' do
               'option' => {
                 'sub_opt1' => 1,
                 'sub_opt2' => {
-                  'foo' => 'bar'
-                }
-              }
-            }
+                  'foo' => 'bar',
+                },
+              },
+            },
           }
         end
 
         it {
-          is_expected.to contain_file('charon_plugin_eap'). \
-            with_content(Regexp.new(<<-HEREDOC
+          is_expected.to contain_file('charon_plugin_eap')
+            .with_content(Regexp.new(<<-HEREDOC,
 eap {
     load = yes
     option {
@@ -53,7 +53,7 @@ eap {
     }
 }
             HEREDOC
-                                   ))
+                                    ))
         }
       end
     end

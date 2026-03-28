@@ -12,26 +12,26 @@ describe 'strongswan::conn', type: :define do
           options: {
             'ike'         => 'aes128gcm128-prfsha256-ecp256!',
             'esp'         => 'aes128gcm128-ecp256!',
-            'keyexchange' => 'ikev2'
-          }
+            'keyexchange' => 'ikev2',
+          },
         }
       end
 
       it {
-        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default'). \
-          with_content(%r{^conn ikev2-default$})
+        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default')
+          .with_content(%r{^conn ikev2-default$})
       }
       it {
-        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default'). \
-          with_content(%r{^\s*ike=aes128gcm128-prfsha256-ecp256})
+        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default')
+          .with_content(%r{^\s*ike=aes128gcm128-prfsha256-ecp256})
       }
       it {
-        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default'). \
-          with_content(%r{^\s*esp=aes128gcm128-ecp256})
+        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default')
+          .with_content(%r{^\s*esp=aes128gcm128-ecp256})
       }
       it {
-        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default'). \
-          with_content(%r{^\s*keyexchange=ikev2})
+        is_expected.to contain_concat__fragment('ipsec_conf_conn-ikev2-default')
+          .with_content(%r{^\s*keyexchange=ikev2})
       }
     end
   end
