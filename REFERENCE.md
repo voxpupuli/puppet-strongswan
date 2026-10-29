@@ -475,4 +475,3 @@ Data type: `Hash`
 A hash of options to use with the secret
 
 Default value: `{}`
-
